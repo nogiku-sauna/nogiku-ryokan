@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ご予約カレンダー｜湯布院旅館のぎく</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF8F3; --ink:#2B2A26; --sub:#6E6A61; --moss:#6E7B5B; --ai:#28455C;
+    --gold:#B08D57; --line:#E6E1D7; --sat:#3E6E8E; --sun:#B0574E; --mute:#C7C1B5;
+    --ok:#2E9E86; --few:#E39A34; --xg:#BDB7AC;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Noto Sans JP",sans-serif;color:var(--ink);background:var(--paper);line-height:1.8;-webkit-font-smoothing:antialiased;}
+  .min{font-family:"Shippori Mincho",serif;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:520px;margin:0 auto;min-height:100vh;padding-bottom:92px;}
+
+  .header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
+    padding:12px 18px;background:rgba(250,248,243,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+  .header .brand{font-family:"Shippori Mincho",serif;font-weight:600;font-size:15px;letter-spacing:.12em;}
+  .header a.back{font-size:12px;color:var(--sub);}
+
+  .titlebar{text-align:center;padding:20px 20px 6px;}
+  .titlebar .en{font-family:"Shippori Mincho",serif;font-size:11px;letter-spacing:.34em;color:var(--moss);text-transform:uppercase;}
+  .titlebar .jp{font-family:"Shippori Mincho",serif;font-weight:600;font-size:22px;letter-spacing:.14em;margin-top:6px;}
+
+  .tabs{display:flex;gap:10px;justify-content:center;padding:8px 20px 2px;}
+  .tab{flex:1;max-width:170px;text-align:center;font-family:"Shippori Mincho",serif;font-size:14px;letter-spacing:.08em;
+    padding:10px 8px;border:1px solid var(--line);border-radius:2px;background:#fff;color:var(--sub);cursor:pointer;}
+  .tab .p{display:block;font-family:"Noto Sans JP";font-size:11px;color:var(--mute);margin-top:2px;}
+  .tab.on{border-color:var(--ai);background:var(--ai);color:#fff;} .tab.on .p{color:rgba(255,255,255,.75);}
+
+  .sels{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:14px 14px 2px;}
+  .selc{display:flex;flex-direction:column;align-items:center;gap:3px;}
+  .selc label{font-size:10px;color:var(--sub);letter-spacing:.02em;}
+  .selc select{padding:8px 6px;border:1px solid var(--line);border-radius:2px;background:#fff;font-family:inherit;font-size:13px;min-width:62px;text-align:center;color:var(--ink);}
+  .nights{padding:8px 18px 2px;}
+  .nights select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:2px;background:#fff;font-family:"Shippori Mincho",serif;font-size:14px;}
+  .warn{margin:8px 18px 0;border:1px solid var(--sun);background:#FBEEEC;color:var(--sun);border-radius:2px;padding:9px 12px;font-size:12px;text-align:center;}
+
+  .monthnav{display:flex;align-items:center;justify-content:center;gap:20px;padding:14px 20px 2px;}
+  .monthnav button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:18px;cursor:pointer;}
+  .monthnav button:disabled{opacity:.3;cursor:default;}
+  .monthnav .lbl{font-family:"Shippori Mincho",serif;font-size:12px;color:var(--sub);letter-spacing:.08em;}
+
+  .mblock{margin:14px 12px 0;}
+  .mtitle{text-align:center;font-family:"Shippori Mincho",serif;font-weight:600;font-size:17px;letter-spacing:.12em;margin-bottom:8px;}
+  .dow{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;color:var(--sub);padding-bottom:5px;}
+  .dow .b{color:var(--sat);} .dow .r{color:var(--sun);}
+  .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:2px;overflow:hidden;}
+  .cell{background:#fff;min-height:60px;padding:5px 5px 4px;display:flex;flex-direction:column;cursor:pointer;position:relative;}
+  .cell .top{display:flex;align-items:center;justify-content:space-between;}
+  .cell .sym{font-size:12px;line-height:1;}
+  .cell .sym.ok{color:var(--ok);} .cell .sym.few{color:var(--few);} .cell .sym.x,.cell .sym.cl{color:var(--xg);}
+  .cell .dn{font-size:12px;color:var(--ink);}
+  .cell.sat .dn{color:var(--sat);} .cell.sun .dn{color:var(--sun);}
+  .cell .pr{font-size:10px;color:var(--ink);text-align:center;margin-top:auto;letter-spacing:-.03em;}
+  .cell.blank{background:#F4F1EA;cursor:default;}
+  .cell.na{background:#F4F1EA;cursor:default;}
+  .cell.na .dn{color:var(--mute);}
+  .cell.sel{outline:2px solid var(--ai);outline-offset:-2px;background:#EEF3F5;}
+
+  .legend{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;font-size:11px;color:var(--sub);padding:16px 20px 4px;}
+  .legend span{display:inline-flex;align-items:center;gap:4px;}
+  .legend .s{font-size:12px;} .legend .ok{color:var(--ok);} .legend .few{color:var(--few);} .legend .x{color:var(--xg);}
+  .note{text-align:center;font-size:11px;color:var(--mute);padding:2px 20px 14px;}
+
+  .bar{position:fixed;left:0;right:0;bottom:0;z-index:40;max-width:520px;margin:0 auto;
+    background:var(--ink);padding:10px 16px;display:flex;align-items:center;gap:12px;}
+  .bar .info{flex:1;color:#fff;font-size:12px;line-height:1.5;}
+  .bar .info .big{font-family:"Shippori Mincho",serif;font-size:15px;letter-spacing:.06em;}
+  .bar .info .muted{color:rgba(255,255,255,.6);}
+  .bar a{flex:0 0 auto;background:var(--paper);color:var(--ink);font-family:"Shippori Mincho",serif;font-weight:600;
+    padding:12px 18px;border-radius:2px;font-size:13.5px;letter-spacing:.06em;}
+  .bar a.off{opacity:.4;pointer-events:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="brand min">湯布院旅館のぎく</div>
+    <a class="back" href="index.html">← トップへ</a>
+  </div>
+
+  <div class="titlebar"><div class="en">Reservation</div><div class="jp">ご予約カレンダー</div></div>
+
+  <div class="tabs">
+    <div class="tab on" data-type="hanare">離れ<span class="p">3室・定員5名</span></div>
+    <div class="tab" data-type="nagaya">長屋<span class="p">4室・定員3名</span></div>
+  </div>
+
+  <div class="sels">
+    <div class="selc"><label>大人（13歳〜）</label><select id="sAdult"></select></div>
+    <div class="selc"><label>7-12歳</label><select id="s712"></select></div>
+    <div class="selc"><label>3-6歳</label><select id="s36"></select></div>
+    <div class="selc"><label>添寝 0-2歳</label><select id="s02"></select></div>
+  </div>
+  <div class="nights">
+    <select id="sNights"><option value="1">1泊</option><option value="2">2泊</option><option value="3">3泊</option></select>
+  </div>
+  <div class="warn" id="warn" style="display:none;">定員（大人＋子供）を超えています。人数をご確認ください。</div>
+
+  <div class="monthnav">
+    <button id="prev">‹</button><span class="lbl">月を移動</span><button id="next">›</button>
+  </div>
+
+  <div id="months"></div>
+
+  <div class="legend">
+    <span><span class="s ok">●</span>空室あり</span>
+    <span><span class="s few">▲</span>残りわずか</span>
+    <span><span class="s x">✕</span>チェックイン不可</span>
+    <span><span class="s x">―</span>休館</span>
+  </div>
+  <div class="note">表示の料金は、上記条件での「1泊・大人1名・初日」の最低料金の目安です（金額は仮）</div>
+
+</div>
+
+<div class="bar">
+  <div class="info" id="sumInfo"><span class="muted">日付をお選びください</span></div>
+  <a href="#" id="goBtn" class="off">予約へ進む</a>
+</div>
+
+<script>
+(function(){
+  var TODAY=new Date(2026,7,14); TODAY.setHours(0,0,0,0);
+  var view=new Date(2026,7,1);
+  var CAP={hanare:5,nagaya:3};
+  var type='hanare', selected=null;
+  var OCC={1:1.4,2:1.0,3:0.92,4:0.86,5:0.82};
+  var yen=function(n){return n.toLocaleString('ja-JP')+'円';};
+
+  // セレクト初期化
+  function fill(id,min,max,def){var s=document.getElementById(id);for(var i=min;i<=max;i++){var o=document.createElement('option');o.value=i;o.textContent=i+'人';if(i===def)o.selected=true;s.appendChild(o);}}
+  fill('sAdult',1,5,2); fill('s712',0,4,0); fill('s36',0,4,0); fill('s02',0,4,0);
+  function val(id){return +document.getElementById(id).value;}
+
+  function baseFor(dt){var d=dt.getDay();var t=type==='hanare'?{wk:24000,sun:26000,fri:30000,sat:34000}:{wk:16000,sun:17000,fri:20000,sat:22000};if(d===6)return t.sat;if(d===5)return t.fri;if(d===0)return t.sun;return t.wk;}
+  function adultPer(dt){var a=val('sAdult')||1;return Math.round(baseFor(dt)*(OCC[a]||1)/100)*100;}
+  function totalFor(dt){ /* ★子供料金は仮 */
+    var a=val('sAdult'), ap=adultPer(dt);
+    var t=ap*a;
+    t += val('s712')*Math.round(ap*0.7/100)*100;  // 7-12歳=大人70%(仮)
+    t += val('s36')*3000;                          // 3-6歳=施設使用料3,000円(仮)
+    t += val('s02')*0;                             // 添寝0-2歳=無料(仮)
+    return t;
+  }
+  function roomsCount(){return val('sAdult')+val('s712')+val('s36');} // 添寝は定員外
+  function overCap(){return roomsCount()>CAP[type];}
+
+  function avail(dt){
+    if(dt<TODAY)return 'x';
+    var r=(dt.getDate()+dt.getMonth()*3)%9;
+    if(r===0)return 'x'; if(r===8)return 'cl'; if(r<=5)return 'few'; return 'ok';
+  }
+  var SYM={ok:'●',few:'▲',x:'✕',cl:'―'};
+
+  function buildMonth(y,m){
+    var wrap=document.createElement('div'); wrap.className='mblock';
+    var title=document.createElement('div'); title.className='mtitle'; title.textContent=y+'年 '+(m+1)+'月'; wrap.appendChild(title);
+    var dow=document.createElement('div'); dow.className='dow';
+    ['月','火','水','木','金','土','日'].forEach(function(w,i){var d=document.createElement('div');d.textContent=w;if(i===5)d.className='b';if(i===6)d.className='r';dow.appendChild(d);});
+    wrap.appendChild(dow);
+    var grid=document.createElement('div'); grid.className='grid';
+    var days=new Date(y,m+1,0).getDate();
+    var lead=(new Date(y,m,1).getDay()+6)%7;
+    for(var i=0;i<lead;i++){var b=document.createElement('div');b.className='cell blank';grid.appendChild(b);}
+    for(var day=1;day<=days;day++){
+      var dt=new Date(y,m,day); dt.setHours(0,0,0,0);
+      var st=avail(dt); var c=document.createElement('div'); c.className='cell';
+      if(dt.getDay()===6)c.classList.add('sat'); if(dt.getDay()===0)c.classList.add('sun');
+      var top='<div class="top"><span class="sym '+st+'">'+SYM[st]+'</span><span class="dn">'+day+'</span></div>';
+      if(st==='ok'||st==='few'){
+        c.innerHTML=top+'<div class="pr">'+yen(adultPer(dt))+'</div>';
+        (function(dd){c.onclick=function(){selected=dd;refresh();};})(dt);
+      } else { c.classList.add('na'); c.innerHTML=top; }
+      if(selected && dt.getTime()===selected.getTime()) c.classList.add('sel');
+      grid.appendChild(c);
+    }
+    wrap.appendChild(grid); return wrap;
+  }
+
+  function renderMonths(){
+    var box=document.getElementById('months'); box.innerHTML='';
+    var m0=new Date(view), m1=new Date(view.getFullYear(),view.getMonth()+1,1);
+    box.appendChild(buildMonth(m0.getFullYear(),m0.getMonth()));
+    box.appendChild(buildMonth(m1.getFullYear(),m1.getMonth()));
+    document.getElementById('prev').disabled=(view.getFullYear()===TODAY.getFullYear()&&view.getMonth()===TODAY.getMonth());
+  }
+
+  function updateSummary(){
+    var info=document.getElementById('sumInfo'), go=document.getElementById('goBtn');
+    document.getElementById('warn').style.display=overCap()?'block':'none';
+    if(!selected){ info.innerHTML='<span class="muted">日付をお選びください</span>'; go.classList.add('off'); return; }
+    var w=['日','月','火','水','木','金','土'][selected.getDay()];
+    var typeName=type==='hanare'?'離れ':'長屋';
+    var g=[]; if(val('sAdult'))g.push('大人'+val('sAdult')); if(val('s712'))g.push('7-12歳'+val('s712')); if(val('s36'))g.push('3-6歳'+val('s36')); if(val('s02'))g.push('添寝'+val('s02'));
+    var head='<span class="big">'+(selected.getMonth()+1)+'月'+selected.getDate()+'日（'+w+'）</span> <span class="muted">'+typeName+'・'+g.join('/')+'・'+val('sNights')+'泊</span><br>';
+    if(overCap()){ info.innerHTML=head+'<span style="color:#F1B0A8;">定員を超えています</span>'; go.classList.add('off'); return; }
+    info.innerHTML=head+'<span>'+yen(totalFor(selected))+' <span class="muted">／1泊 合計・素泊まり</span></span>';
+    go.classList.remove('off'); go.setAttribute('href','rooms.html');
+  }
+
+  function refresh(){ renderMonths(); updateSummary(); }
+
+  ['sAdult','s712','s36','s02','sNights'].forEach(function(id){document.getElementById(id).onchange=refresh;});
+  document.getElementById('prev').onclick=function(){ if(view.getFullYear()===TODAY.getFullYear()&&view.getMonth()===TODAY.getMonth())return; view.setMonth(view.getMonth()-1); refresh(); };
+  document.getElementById('next').onclick=function(){ view.setMonth(view.getMonth()+1); refresh(); };
+  document.querySelectorAll('.tab').forEach(function(t){t.onclick=function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');}); t.classList.add('on');
+    type=t.getAttribute('data-type'); refresh();
+  };});
+
+  refresh();
+})();
+</script>
+</body>
+</html>

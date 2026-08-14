@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お部屋を選ぶ｜湯布院旅館のぎく</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF8F3; --ink:#2B2A26; --sub:#6E6A61; --moss:#6E7B5B; --ai:#28455C;
+    --gold:#B08D57; --line:#E6E1D7; --card:#FFFFFF; --mute:#C7C1B5; --ph:#ECE8DF; --sun:#B0574E;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Noto Sans JP",sans-serif;color:var(--ink);background:var(--paper);line-height:1.8;-webkit-font-smoothing:antialiased;}
+  .min{font-family:"Shippori Mincho",serif;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:500px;margin:0 auto;min-height:100vh;padding-bottom:88px;}
+
+  .header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
+    padding:12px 18px;background:rgba(250,248,243,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+  .header .brand{font-family:"Shippori Mincho",serif;font-weight:600;font-size:15px;letter-spacing:.12em;}
+  .header a.back{font-size:12px;color:var(--sub);}
+
+  .cond{display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid var(--line);padding:12px 20px;}
+  .cond .d{font-family:"Shippori Mincho",serif;font-size:14px;letter-spacing:.06em;}
+  .cond .d small{font-family:"Noto Sans JP";color:var(--sub);font-size:12px;margin-left:8px;}
+  .cond a{font-size:12px;color:var(--ai);}
+
+  .titlebar{text-align:center;padding:22px 20px 6px;}
+  .titlebar .en{font-family:"Shippori Mincho",serif;font-size:11px;letter-spacing:.34em;color:var(--moss);text-transform:uppercase;}
+  .titlebar .jp{font-family:"Shippori Mincho",serif;font-weight:600;font-size:22px;letter-spacing:.14em;margin-top:6px;}
+  .limited{text-align:center;font-size:12px;color:var(--moss);padding:2px 20px 8px;letter-spacing:.03em;}
+
+  .group{padding:16px 18px 4px;}
+  .group h2{font-family:"Shippori Mincho",serif;font-weight:600;font-size:17px;letter-spacing:.12em;margin-bottom:2px;}
+  .group .gsub{font-size:12px;color:var(--sub);margin-bottom:12px;}
+
+  .rc{display:flex;background:#fff;border:1px solid var(--line);border-radius:3px;overflow:hidden;margin-bottom:12px;cursor:pointer;transition:.15s;}
+  .rc .ph{flex:0 0 128px;background:var(--ph);display:flex;align-items:center;justify-content:center;color:#A9A292;font-size:11px;text-align:center;padding:6px;}
+  .rc .b{flex:1;padding:12px 14px;position:relative;}
+  .rc .rn{font-family:"Shippori Mincho",serif;font-weight:600;font-size:15px;letter-spacing:.05em;}
+  .rc .rt{font-size:11px;color:var(--gold);margin-top:1px;letter-spacing:.04em;}
+  .rc .rs{font-size:11.5px;color:var(--sub);margin:5px 0 8px;line-height:1.5;}
+  .rc .price{font-family:"Shippori Mincho",serif;font-size:15px;color:var(--ink);}
+  .rc .price small{font-family:"Noto Sans JP";font-size:10px;color:var(--sub);font-weight:400;}
+  .rc .badge{position:absolute;top:12px;right:12px;font-size:10px;padding:2px 8px;border-radius:999px;}
+  .rc .badge.ok{background:#EEF2EC;color:var(--moss);}
+  .rc .badge.no{background:#F2EFE9;color:var(--mute);}
+  .rc.sel{outline:2px solid var(--ai);outline-offset:-2px;}
+  .rc.full{opacity:.55;cursor:default;}
+
+  .bar{position:fixed;left:0;right:0;bottom:0;z-index:40;max-width:500px;margin:0 auto;
+    background:var(--ink);padding:10px 16px;display:flex;align-items:center;gap:12px;}
+  .bar .info{flex:1;color:#fff;font-size:12px;line-height:1.5;}
+  .bar .info .big{font-family:"Shippori Mincho",serif;font-size:15px;letter-spacing:.06em;}
+  .bar .info .muted{color:rgba(255,255,255,.6);}
+  .bar a{flex:0 0 auto;background:var(--paper);color:var(--ink);font-family:"Shippori Mincho",serif;font-weight:600;
+    padding:12px 18px;border-radius:2px;font-size:13.5px;letter-spacing:.06em;}
+  .bar a.off{opacity:.4;pointer-events:none;}
+  .fnote{text-align:center;font-size:11px;color:var(--mute);padding:6px 20px 14px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="brand min">湯布院旅館のぎく</div>
+    <a class="back" href="reserve.html">← 日付・人数へ</a>
+  </div>
+
+  <div class="cond">
+    <div class="d">8月20日（木）<small>1泊・大人2名・素泊まり</small></div>
+    <a href="reserve.html">変更</a>
+  </div>
+
+  <div class="titlebar"><div class="en">Rooms</div><div class="jp">お部屋をお選びください</div></div>
+  <div class="limited">◈ 公式サイト限定：お部屋を指定してご予約いただけます</div>
+
+  <!-- 離れ -->
+  <div class="group">
+    <h2>離れ</h2>
+    <div class="gsub">露天風呂付き・和室二間・約57㎡・定員5名</div>
+
+    <div class="rc" data-name="離れ・由布岳側" data-price="24,000">
+      <div class="ph">写真<br>離れ・由布岳側</div>
+      <div class="b"><span class="badge ok">空室</span>
+        <div class="rn">離れ・由布岳側 <span style="font-size:10px;color:var(--mute);">（仮）</span></div>
+        <div class="rt">いちばん眺めの良いお部屋</div>
+        <div class="rs">露天風呂・和室二間・約57㎡／由布岳を望む</div>
+        <div class="price">¥24,000〜 <small>／1名・素泊まり</small></div>
+      </div>
+    </div>
+
+    <div class="rc" data-name="離れ・庭側" data-price="24,000">
+      <div class="ph">写真<br>離れ・庭側</div>
+      <div class="b"><span class="badge ok">空室</span>
+        <div class="rn">離れ・庭側 <span style="font-size:10px;color:var(--mute);">（仮）</span></div>
+        <div class="rt">日本庭園に面した静かなお部屋</div>
+        <div class="rs">露天風呂・和室二間・約57㎡／庭の眺め</div>
+        <div class="price">¥24,000〜 <small>／1名・素泊まり</small></div>
+      </div>
+    </div>
+
+    <div class="rc full">
+      <div class="ph">写真<br>離れ・奥</div>
+      <div class="b"><span class="badge no">満室</span>
+        <div class="rn">離れ・奥 <span style="font-size:10px;color:var(--mute);">（仮）</span></div>
+        <div class="rt">いちばん奥のプライベートなお部屋</div>
+        <div class="rs">露天風呂・和室二間・約57㎡</div>
+        <div class="price" style="color:var(--mute);">この日は満室です</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 長屋 -->
+  <div class="group">
+    <h2>長屋</h2>
+    <div class="gsub">客室風呂付き・和室10畳・約37㎡・定員3名</div>
+
+    <div class="rc" data-name="長屋・つるみ（内風呂）" data-price="16,000">
+      <div class="ph">写真<br>長屋・つるみ</div>
+      <div class="b"><span class="badge ok">空室</span>
+        <div class="rn">長屋・つるみ <span style="font-size:10px;color:var(--mute);">（仮）</span></div>
+        <div class="rt">当館で唯一の「内風呂」のお部屋</div>
+        <div class="rs">内風呂・和室10畳・約37㎡／落ち着いた内湯</div>
+        <div class="price">¥16,000〜 <small>／1名・素泊まり</small></div>
+      </div>
+    </div>
+
+    <div class="rc" data-name="長屋・A" data-price="16,000">
+      <div class="ph">写真<br>長屋・A</div>
+      <div class="b"><span class="badge ok">空室</span>
+        <div class="rn">長屋・A <span style="font-size:10px;color:var(--mute);">（仮）</span></div>
+        <div class="rs">客室風呂・和室10畳・約37㎡</div>
+        <div class="price">¥16,000〜 <small>／1名・素泊まり</small></div>
+      </div>
+    </div>
+
+    <div class="rc" data-name="長屋・B" data-price="16,000">
+      <div class="ph">写真<br>長屋・B</div>
+      <div class="b"><span class="badge ok">空室</span>
+        <div class="rn">長屋・B <span style="font-size:10px;color:var(--mute);">（仮）</span></div>
+        <div class="rs">客室風呂・和室10畳・約37㎡</div>
+        <div class="price">¥16,000〜 <small>／1名・素泊まり</small></div>
+      </div>
+    </div>
+
+    <div class="rc full">
+      <div class="ph">写真<br>長屋・C</div>
+      <div class="b"><span class="badge no">満室</span>
+        <div class="rn">長屋・C <span style="font-size:10px;color:var(--mute);">（仮）</span></div>
+        <div class="rs">客室風呂・和室10畳・約37㎡</div>
+        <div class="price" style="color:var(--mute);">この日は満室です</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fnote">お部屋の名称・写真は仮です。指定は「確約／ご希望」いずれの運用にもできます。</div>
+
+</div>
+
+<div class="bar">
+  <div class="info" id="sumInfo"><span class="muted">お部屋をお選びください</span></div>
+  <a href="#" id="goBtn" class="off">このお部屋で予約</a>
+</div>
+
+<script>
+(function(){
+  var cards=document.querySelectorAll('.rc:not(.full)');
+  var selected=null;
+  cards.forEach(function(c){
+    c.onclick=function(){
+      cards.forEach(function(x){x.classList.remove('sel');});
+      c.classList.add('sel'); selected=c;
+      var name=c.getAttribute('data-name'), price=c.getAttribute('data-price');
+      document.getElementById('sumInfo').innerHTML='<span class="big">'+name+'</span><br><span>¥'+price+'〜 <span class="muted">／1名・素泊まり</span></span>';
+      var g=document.getElementById('goBtn'); g.classList.remove('off'); g.setAttribute('href','#'); /* ★予約エンジンのURLに */
+    };
+  });
+})();
+</script>
+</body>
+</html>

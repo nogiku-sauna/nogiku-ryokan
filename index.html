@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>湯布院旅館のぎく｜田園に佇む、一日七組の宿</title>
+<meta name="description" content="由布院の田園に抱かれた、一日七組だけの温泉宿。全室、源泉かけ流しの客室風呂。離れ・長屋、趣ある佇まい。由布院駅より徒歩8分。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF8F3; --ink:#2B2A26; --sub:#6E6A61; --moss:#6E7B5B; --ai:#28455C;
+    --gold:#B08D57; --line:#E6E1D7; --card:#FFFFFF; --ph:#ECE8DF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:"Noto Sans JP",sans-serif;color:var(--ink);background:var(--paper);line-height:1.85;-webkit-font-smoothing:antialiased;}
+  .min{font-family:"Shippori Mincho",serif;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:500px;margin:0 auto;background:var(--paper);min-height:100vh;padding-bottom:78px;overflow:hidden;}
+
+  /* ヘッダー */
+  .header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
+    padding:12px 18px;background:rgba(250,248,243,.9);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+  .header .brand{font-family:"Shippori Mincho",serif;font-weight:600;font-size:16px;color:var(--ink);letter-spacing:.12em;}
+  .header .cta{display:flex;flex-direction:column;align-items:flex-end;line-height:1.2;}
+  .header .cta .lbl{font-size:9px;color:var(--moss);letter-spacing:.08em;}
+  .header .cta a{background:var(--ai);color:#fff;font-size:12px;padding:7px 14px;border-radius:2px;margin-top:3px;letter-spacing:.06em;}
+
+  /* ヒーロー */
+  .hero{position:relative;height:78vh;min-height:480px;max-height:640px;
+    background:linear-gradient(180deg,rgba(20,25,20,.18),rgba(20,25,20,.62)),var(--ink);
+    display:flex;flex-direction:column;justify-content:flex-end;align-items:center;text-align:center;color:#fff;padding:0 24px 40px;}
+  .hero .tag{position:absolute;top:16px;left:16px;font-size:11px;color:rgba(255,255,255,.7);border:1px dashed rgba(255,255,255,.4);border-radius:3px;padding:3px 8px;}
+  .hero h1{font-family:"Shippori Mincho",serif;font-weight:500;font-size:27px;line-height:1.8;letter-spacing:.08em;margin-bottom:16px;text-shadow:0 1px 16px rgba(0,0,0,.4);}
+  .hero .sub{font-size:13px;letter-spacing:.1em;color:rgba(255,255,255,.9);margin-bottom:22px;}
+  .hero .cta{background:var(--paper);color:var(--ink);font-family:"Shippori Mincho",serif;font-weight:600;
+    padding:14px 34px;border-radius:2px;font-size:15px;letter-spacing:.1em;}
+  .hero .cta small{display:block;font-family:"Noto Sans JP";font-weight:400;font-size:10px;color:var(--moss);letter-spacing:.06em;margin-top:2px;}
+
+  /* 番号ストーリー */
+  section{padding:44px 22px;}
+  .story .row{display:flex;gap:16px;align-items:stretch;}
+  .story .photo{flex:1;min-height:260px;}
+  .story .side{flex:0 0 auto;width:54px;display:flex;flex-direction:column;align-items:center;gap:16px;padding-top:6px;}
+  .num{width:34px;height:34px;border-radius:50%;background:var(--moss);color:#fff;font-family:"Shippori Mincho",serif;
+    display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .vhead{writing-mode:vertical-rl;font-family:"Shippori Mincho",serif;font-weight:600;font-size:21px;
+    letter-spacing:.28em;color:var(--ink);line-height:2;}
+  .story .text{margin-top:20px;font-size:14px;color:var(--ink);letter-spacing:.02em;}
+  .story .text .en{display:block;font-family:"Shippori Mincho",serif;font-size:11px;letter-spacing:.3em;color:var(--moss);margin-bottom:6px;text-transform:uppercase;}
+
+  .ph{background:var(--ph);display:flex;align-items:center;justify-content:center;color:#A9A292;font-size:12px;text-align:center;padding:8px;letter-spacing:.05em;}
+
+  .sec-line{height:1px;background:var(--line);margin:0 22px;}
+
+  /* 客室カード */
+  .rooms{display:flex;flex-direction:column;gap:14px;margin-top:18px;}
+  .room{background:var(--card);border:1px solid var(--line);border-radius:3px;overflow:hidden;}
+  .room .rph{height:170px;}
+  .room .rb{padding:14px 16px;}
+  .room .rn{font-family:"Shippori Mincho",serif;font-weight:600;font-size:17px;color:var(--ink);letter-spacing:.08em;}
+  .room .rs{font-size:12px;color:var(--sub);margin:5px 0 10px;}
+  .room .rm{font-size:12px;color:var(--ai);letter-spacing:.05em;}
+  .navs{display:flex;gap:8px;}
+  .navs button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:16px;cursor:pointer;}
+  .roomnote{margin-top:14px;font-size:12.5px;color:var(--moss);letter-spacing:.03em;}
+
+  /* 公式メリット */
+  .merit{background:#fff;border:1px solid var(--line);border-radius:3px;padding:6px 20px;}
+  .merit .m{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line);}
+  .merit .m:last-child{border-bottom:none;}
+  .merit .mi{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:#F1EEE5;color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:15px;}
+  .merit .mt{font-family:"Shippori Mincho",serif;font-weight:600;font-size:15px;color:var(--ink);}
+  .merit .md{font-size:12px;color:var(--sub);margin-top:2px;}
+
+  .head-c{text-align:center;margin-bottom:20px;}
+  .head-c .en{font-family:"Shippori Mincho",serif;font-size:11px;letter-spacing:.34em;color:var(--moss);text-transform:uppercase;}
+  .head-c .jp{font-family:"Shippori Mincho",serif;font-weight:600;font-size:20px;letter-spacing:.14em;color:var(--ink);margin-top:6px;}
+
+  .note{display:flex;gap:12px;background:#fff;border:1px solid var(--line);border-radius:3px;padding:18px;}
+  .note .ni{color:var(--moss);font-size:18px;flex:0 0 auto;}
+  .note p{font-size:13px;color:var(--ink);}
+
+  .chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:18px;}
+  .chip{font-size:12px;background:#fff;border:1px solid var(--line);color:var(--sub);padding:8px 16px;border-radius:999px;letter-spacing:.04em;}
+  .btn-book{display:block;text-align:center;background:var(--ai);color:#fff;font-family:"Shippori Mincho",serif;font-weight:600;padding:15px;border-radius:2px;font-size:15px;letter-spacing:.12em;}
+
+  .review{text-align:center;margin-bottom:14px;}
+  .review .star{color:var(--gold);}
+  .review b{font-family:"Shippori Mincho",serif;font-size:20px;color:var(--ink);}
+  .ig{display:flex;gap:8px;}
+  .ig .sq{flex:1;aspect-ratio:1/1;background:var(--ph);border-radius:2px;display:flex;align-items:center;justify-content:center;color:#A9A292;font-size:11px;}
+
+  footer{background:#fff;border-top:1px solid var(--line);color:var(--sub);font-size:12px;padding:24px 22px;text-align:center;line-height:2;}
+  footer .fb{font-family:"Shippori Mincho",serif;font-size:15px;color:var(--ink);letter-spacing:.14em;margin-bottom:6px;}
+
+  .bar{position:fixed;left:0;right:0;bottom:0;z-index:40;max-width:500px;margin:0 auto;
+    display:flex;align-items:center;gap:12px;padding:11px 18px;background:var(--ink);}
+  .bar .txt{flex:1;color:rgba(255,255,255,.72);font-size:11px;letter-spacing:.04em;line-height:1.5;}
+  .bar a{flex:0 0 auto;background:var(--paper);color:var(--ink);font-family:"Shippori Mincho",serif;font-weight:600;padding:11px 22px;border-radius:2px;font-size:14px;letter-spacing:.08em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="brand">湯布院旅館のぎく</div>
+    <div class="cta"><span class="lbl">当サイトが最もお得</span><a href="reserve.html">空室・ご予約</a></div>
+  </div>
+
+  <!-- ヒーロー（★背景を外観写真に差し替え） -->
+  <div class="hero">
+    <span class="tag">📷 メイン写真（外観／由布岳と田園）</span>
+    <h1 class="min">田園の一角に、<br>一日七組だけの宿。</h1>
+    <div class="sub">全室、源泉かけ流しの客室風呂</div>
+    <a class="cta" href="reserve.html">空室・ご予約<small>当サイトが最もお得・お部屋を選べます</small></a>
+  </div>
+
+  <!-- コンセプト -->
+  <section style="text-align:center;padding:48px 24px 42px;">
+    <div style="font-family:'Shippori Mincho',serif;font-size:11px;letter-spacing:.34em;color:var(--moss);text-transform:uppercase;">Concept</div>
+    <h2 class="min" style="font-weight:600;font-size:25px;letter-spacing:.1em;line-height:1.9;margin:16px 0 18px;color:var(--ink);">いい意味で、<br>ほったらかし旅館。</h2>
+    <!-- ↓ 以下の説明文は仮です。あとで自由に差し替えられます -->
+    <p style="font-size:13.5px;color:var(--ink);letter-spacing:.02em;line-height:2.1;">全室、源泉かけ流しの湯。<br>誰にも気を遣わず、あなたのペースで。<br>食事はあえて付けません。由布院の街を、あなたの食卓に。<br>一日七組だけの、静かな自由を。</p>
+  </section>
+  <div class="sec-line"></div>
+
+  <!-- ① のぎくについて -->
+  <section class="story">
+    <div class="row">
+      <div class="ph photo">写真（外観・玄関）</div>
+      <div class="side"><div class="num min">一</div><div class="vhead">田園に佇む、静かな宿</div></div>
+    </div>
+    <div class="text"><span class="en">About</span>由布院の田園に抱かれた、一日七組だけの温泉宿。歴史を感じる伝統的な佇まいの中で、時間を忘れてお過ごしください。喧騒から離れ、ただ静けさに身をゆだねる一夜を。</div>
+  </section>
+  <div class="sec-line"></div>
+
+  <!-- ② 客室 -->
+  <section class="story">
+    <div class="row">
+      <div class="ph photo">写真（客室）</div>
+      <div class="side"><div class="num min">二</div><div class="vhead">趣ある、全室風呂付き</div></div>
+    </div>
+    <div class="text"><span class="en">Rooms</span>離れと長屋、二つのタイプ。いずれも源泉かけ流しの客室風呂を備えています。</div>
+    <div class="rooms" id="rooms">
+      <div class="room">
+        <div class="ph rph">離れの写真</div>
+        <div class="rb"><div class="rn">離れ</div><div class="rs">露天風呂付き／和室二間／約57㎡／由布岳の眺望</div><a class="rm" href="reserve.html">このタイプを見る →</a></div>
+      </div>
+      <div class="room">
+        <div class="ph rph">長屋の写真</div>
+        <div class="rb"><div class="rn">長屋</div><div class="rs">客室風呂付き／和室10畳／約37㎡（つるみ＝内風呂）</div><a class="rm" href="reserve.html">このタイプを見る →</a></div>
+      </div>
+    </div>
+    <div class="roomnote">＊公式サイトなら、タイプを選んだあと「お部屋の指定」ができます（公式限定）</div>
+  </section>
+  <div class="sec-line"></div>
+
+  <!-- ③ 温泉 -->
+  <section class="story">
+    <div class="row">
+      <div class="ph photo">写真（客室風呂・温泉）</div>
+      <div class="side"><div class="num min">三</div><div class="vhead">全室、源泉かけ流し</div></div>
+    </div>
+    <div class="text"><span class="en">Onsen</span>アルカリ性単純温泉「美人の湯」。天然の保湿成分メタケイ酸を含み、肌をやわらかく整えます。誰にも邪魔されない、お部屋だけの湯浴みを。</div>
+  </section>
+  <div class="sec-line"></div>
+
+  <!-- ④ 過ごし方（素泊まり） -->
+  <section class="story">
+    <div class="row">
+      <div class="ph photo">写真（由布院の街・田園）</div>
+      <div class="side"><div class="num min">四</div><div class="vhead">由布院を、自由に歩く</div></div>
+    </div>
+    <div class="text"><span class="en">Stay</span>当館は素泊まりの宿です。由布院の街並みと食事処を、思いのままにお楽しみください。おすすめのお店もご案内します。レンタサイクルもございます。</div>
+  </section>
+  <div class="sec-line"></div>
+
+  <!-- ⑤ アクセス -->
+  <section class="story">
+    <div class="row">
+      <div class="ph photo" style="min-height:200px;">地図</div>
+      <div class="side"><div class="num min">五</div><div class="vhead">由布院駅より徒歩八分</div></div>
+    </div>
+    <div class="text"><span class="en">Access</span>JR由布院駅より徒歩7〜8分／湯布院ICより車で約10分／駐車場 無料<br>大分県由布市湯布院町川上2879-1</div>
+  </section>
+
+  <!-- 公式で予約するメリット -->
+  <section>
+    <div class="head-c"><div class="en">Official Site</div><div class="jp">公式サイトで予約する、四つのこと</div></div>
+    <div class="merit">
+      <div class="m"><div class="mi">◈</div><div><div class="mt">お部屋を選べる</div><div class="md">OTAは大分類まで。公式だけ、お部屋を指定してご予約いただけます。</div></div></div>
+      <div class="m"><div class="mi">◈</div><div><div class="mt">会員限定価格</div><div class="md">ご登録で、公式だけの価格をご用意しています。</div></div></div>
+      <div class="m"><div class="mi">◈</div><div><div class="mt">公式限定の特典</div><div class="md">湯上がりのお茶・浴衣サービスなど、ささやかなおもてなしを。</div></div></div>
+      <div class="m"><div class="mi">◈</div><div><div class="mt">直接やり取りで安心</div><div class="md">ご要望も伝えやすく、当日までスムーズです。</div></div></div>
+    </div>
+  </section>
+
+  <!-- プラン＆予約 -->
+  <section id="予約" style="padding-top:8px;">
+    <div class="head-c"><div class="en">Reservation</div><div class="jp">宿泊プラン・ご予約</div></div>
+    <div class="chips"><span class="chip">素泊まりプラン</span><span class="chip">公式限定プラン</span><span class="chip">連泊プラン</span></div>
+    <!-- ★ここに予約エンジン（CHILLNN等）の予約ボタン/埋め込みを設置 -->
+    <a class="btn-book" href="reserve.html">空室・料金を見る</a>
+  </section>
+
+  <!-- 声・Instagram -->
+  <section style="padding-top:8px;">
+    <div class="review"><span class="star">★</span> <b>9.1</b> <span style="font-size:12px;color:var(--sub);">／ 3,493件のクチコミ</span></div>
+    <div class="ig"><div class="sq">Instagram</div><div class="sq">Instagram</div><div class="sq">Instagram</div></div>
+  </section>
+
+  <footer>
+    <div class="fb min">湯布院旅館のぎく</div>
+    TEL 0977-85-3372 ・ <a href="#" style="color:var(--ai);">よくある質問</a><br>
+    〒879-5102 大分県由布市湯布院町川上2879-1
+  </footer>
+
+</div>
+
+<div class="bar">
+  <div class="txt">当サイトが最もお得<br>お部屋を選べます</div>
+  <a href="reserve.html">空室・ご予約</a>
+</div>
+
+</body>
+</html>
