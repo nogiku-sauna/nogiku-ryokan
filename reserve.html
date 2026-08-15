@@ -11,13 +11,13 @@
   :root{
     --paper:#FAF8F3; --ink:#2B2A26; --sub:#6E6A61; --moss:#6E7B5B; --ai:#28455C;
     --gold:#B08D57; --line:#E6E1D7; --sat:#3E6E8E; --sun:#B0574E; --mute:#C7C1B5;
-    --ok:#2E9E86; --few:#E39A34; --xg:#BDB7AC;
+    --ok:#2E9E86; --few:#E39A34; --xg:#BDB7AC; --sel:#EEF3F5;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:"Noto Sans JP",sans-serif;color:var(--ink);background:var(--paper);line-height:1.8;-webkit-font-smoothing:antialiased;}
   .min{font-family:"Shippori Mincho",serif;}
   a{color:inherit;text-decoration:none;}
-  .wrap{max-width:520px;margin:0 auto;min-height:100vh;padding-bottom:92px;}
+  .wrap{max-width:520px;margin:0 auto;min-height:100vh;padding-bottom:96px;}
 
   .header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
     padding:12px 18px;background:rgba(250,248,243,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
@@ -34,15 +34,17 @@
   .tab .p{display:block;font-family:"Noto Sans JP";font-size:11px;color:var(--mute);margin-top:2px;}
   .tab.on{border-color:var(--ai);background:var(--ai);color:#fff;} .tab.on .p{color:rgba(255,255,255,.75);}
 
-  .sels{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:14px 14px 2px;}
+  .lbl-c{text-align:center;font-family:"Shippori Mincho",serif;font-size:13px;letter-spacing:.1em;color:var(--sub);padding:14px 20px 2px;}
+  .sels{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:6px 14px 2px;}
   .selc{display:flex;flex-direction:column;align-items:center;gap:3px;}
-  .selc label{font-size:10px;color:var(--sub);letter-spacing:.02em;}
+  .selc label{font-size:10px;color:var(--sub);}
   .selc select{padding:8px 6px;border:1px solid var(--line);border-radius:2px;background:#fff;font-family:inherit;font-size:13px;min-width:62px;text-align:center;color:var(--ink);}
-  .nights{padding:8px 18px 2px;}
-  .nights select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:2px;background:#fff;font-family:"Shippori Mincho",serif;font-size:14px;}
   .warn{margin:8px 18px 0;border:1px solid var(--sun);background:#FBEEEC;color:var(--sun);border-radius:2px;padding:9px 12px;font-size:12px;text-align:center;}
 
-  .monthnav{display:flex;align-items:center;justify-content:center;gap:20px;padding:14px 20px 2px;}
+  .stay{text-align:center;font-family:"Shippori Mincho",serif;font-size:14px;letter-spacing:.06em;padding:14px 20px 2px;color:var(--ink);}
+  .stay .muted{color:var(--mute);font-family:"Noto Sans JP";font-size:12px;}
+
+  .monthnav{display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 20px 2px;}
   .monthnav button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:18px;cursor:pointer;}
   .monthnav button:disabled{opacity:.3;cursor:default;}
   .monthnav .lbl{font-family:"Shippori Mincho",serif;font-size:12px;color:var(--sub);letter-spacing:.08em;}
@@ -60,14 +62,32 @@
   .cell.sat .dn{color:var(--sat);} .cell.sun .dn{color:var(--sun);}
   .cell .pr{font-size:10px;color:var(--ink);text-align:center;margin-top:auto;letter-spacing:-.03em;}
   .cell.blank{background:#F4F1EA;cursor:default;}
-  .cell.na{background:#F4F1EA;cursor:default;}
-  .cell.na .dn{color:var(--mute);}
-  .cell.sel{outline:2px solid var(--ai);outline-offset:-2px;background:#EEF3F5;}
+  .cell.na{background:#F4F1EA;cursor:default;} .cell.na .dn{color:var(--mute);}
+  .cell.mid{background:var(--sel);}
+  .cell.edge{background:var(--sel);outline:2px solid var(--ai);outline-offset:-2px;}
 
-  .legend{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;font-size:11px;color:var(--sub);padding:16px 20px 4px;}
-  .legend span{display:inline-flex;align-items:center;gap:4px;}
-  .legend .s{font-size:12px;} .legend .ok{color:var(--ok);} .legend .few{color:var(--few);} .legend .x{color:var(--xg);}
-  .note{text-align:center;font-size:11px;color:var(--mute);padding:2px 20px 14px;}
+  .legend{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;font-size:11px;color:var(--sub);padding:14px 20px 4px;}
+  .legend span{display:inline-flex;align-items:center;gap:4px;} .legend .s{font-size:12px;} .legend .ok{color:var(--ok);} .legend .few{color:var(--few);} .legend .x{color:var(--xg);}
+
+  /* サウナ */
+  .sauna{margin-top:16px;border-top:8px solid #F0ECE3;padding:20px 20px 4px;}
+  .sauna .q{font-family:"Shippori Mincho",serif;font-size:16px;letter-spacing:.06em;text-align:center;margin-bottom:12px;}
+  .sauna .opt{display:flex;gap:10px;justify-content:center;}
+  .sauna .opt button{flex:1;max-width:170px;padding:12px;border:1px solid var(--line);border-radius:2px;background:#fff;
+    font-family:"Shippori Mincho",serif;font-size:14px;letter-spacing:.06em;cursor:pointer;color:var(--sub);}
+  .sauna .opt button.on{border-color:var(--ai);background:var(--ai);color:#fff;}
+  .sbody{margin-top:16px;}
+  .snum{display:flex;align-items:center;justify-content:space-between;padding:2px 4px 12px;}
+  .snum .l{font-family:"Shippori Mincho",serif;font-size:14px;letter-spacing:.08em;}
+  .snum .l small{font-family:"Noto Sans JP";font-size:11px;color:var(--mute);margin-left:6px;}
+  .stepper{display:flex;align-items:center;gap:14px;}
+  .stepper button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:17px;cursor:pointer;}
+  .stepper button:disabled{opacity:.3;cursor:default;} .stepper .v{font-family:"Shippori Mincho",serif;font-size:16px;min-width:46px;text-align:center;}
+  .slot{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:2px;background:#fff;padding:12px 14px;margin-bottom:8px;cursor:pointer;}
+  .slot.on{border-color:var(--ai);background:var(--sel);}
+  .slot .t{font-family:"Shippori Mincho",serif;font-size:14px;min-width:118px;}
+  .slot .r{font-size:12px;color:var(--sub);}
+  .slot .bd{margin-left:auto;font-size:10px;padding:2px 8px;border-radius:999px;background:#F1EEE5;color:var(--gold);}
 
   .bar{position:fixed;left:0;right:0;bottom:0;z-index:40;max-width:520px;margin:0 auto;
     background:var(--ink);padding:10px 16px;display:flex;align-items:center;gap:12px;}
@@ -77,6 +97,7 @@
   .bar a{flex:0 0 auto;background:var(--paper);color:var(--ink);font-family:"Shippori Mincho",serif;font-weight:600;
     padding:12px 18px;border-radius:2px;font-size:13.5px;letter-spacing:.06em;}
   .bar a.off{opacity:.4;pointer-events:none;}
+  .note{text-align:center;font-size:11px;color:var(--mute);padding:2px 20px 12px;}
 </style>
 </head>
 <body>
@@ -87,42 +108,55 @@
     <a class="back" href="index.html">← トップへ</a>
   </div>
 
-  <div class="titlebar"><div class="en">Reservation</div><div class="jp">ご予約カレンダー</div></div>
+  <div class="titlebar"><div class="en">Reservation</div><div class="jp">ご予約</div></div>
 
   <div class="tabs">
     <div class="tab on" data-type="hanare">離れ<span class="p">3室・定員5名</span></div>
     <div class="tab" data-type="nagaya">長屋<span class="p">4室・定員3名</span></div>
   </div>
 
+  <div class="lbl-c">ご宿泊の人数</div>
   <div class="sels">
     <div class="selc"><label>大人（13歳〜）</label><select id="sAdult"></select></div>
     <div class="selc"><label>7-12歳</label><select id="s712"></select></div>
     <div class="selc"><label>3-6歳</label><select id="s36"></select></div>
     <div class="selc"><label>添寝 0-2歳</label><select id="s02"></select></div>
   </div>
-  <div class="nights">
-    <select id="sNights"><option value="1">1泊</option><option value="2">2泊</option><option value="3">3泊</option></select>
-  </div>
   <div class="warn" id="warn" style="display:none;">定員（大人＋子供）を超えています。人数をご確認ください。</div>
 
-  <div class="monthnav">
-    <button id="prev">‹</button><span class="lbl">月を移動</span><button id="next">›</button>
-  </div>
+  <div class="stay" id="stay">チェックイン日をお選びください</div>
 
+  <div class="monthnav"><button id="prev">‹</button><span class="lbl">月を移動</span><button id="next">›</button></div>
   <div id="months"></div>
 
   <div class="legend">
     <span><span class="s ok">●</span>空室あり</span>
     <span><span class="s few">▲</span>残りわずか</span>
-    <span><span class="s x">✕</span>チェックイン不可</span>
+    <span><span class="s x">✕</span>不可</span>
     <span><span class="s x">―</span>休館</span>
   </div>
-  <div class="note">表示の料金は、上記条件での「1泊・大人1名・初日」の最低料金の目安です（金額は仮）</div>
+
+  <!-- 貸切サウナ -->
+  <div class="sauna">
+    <div class="q">貸切サウナを追加しますか？</div>
+    <div class="opt">
+      <button id="saunaYes">追加する</button>
+      <button id="saunaNo" class="on">追加しない</button>
+    </div>
+    <div class="sbody" id="sbody" style="display:none;">
+      <div class="snum">
+        <div class="l">サウナの人数 <small>大人・13歳〜</small></div>
+        <div class="stepper"><button id="saMinus">−</button><span class="v" id="saVal">2 名</span><button id="saPlus">＋</button></div>
+      </div>
+      <div id="slots"></div>
+    </div>
+  </div>
+  <div class="note">料金はすべて仮です。サウナ枠の空きは、後日Squareと連動します。</div>
 
 </div>
 
 <div class="bar">
-  <div class="info" id="sumInfo"><span class="muted">日付をお選びください</span></div>
+  <div class="info" id="sumInfo"><span class="muted">日程をお選びください</span></div>
   <a href="#" id="goBtn" class="off">予約へ進む</a>
 </div>
 
@@ -131,34 +165,40 @@
   var TODAY=new Date(2026,7,14); TODAY.setHours(0,0,0,0);
   var view=new Date(2026,7,1);
   var CAP={hanare:5,nagaya:3};
-  var type='hanare', selected=null;
   var OCC={1:1.4,2:1.0,3:0.92,4:0.86,5:0.82};
+  var SAUNA_PER=3000; /* ★サウナ 大人1名あたり(仮) */
+  var SLOTS=[
+    {id:0,t:'13:30〜15:30',r:'天照'},{id:1,t:'16:00〜18:00',r:'天照'},
+    {id:2,t:'17:00〜19:00',r:'月読'},{id:3,t:'18:30〜20:30',r:'天照'},
+    {id:4,t:'19:30〜21:30',r:'月読',only:true},{id:5,t:'翌 9:30〜11:30',r:'月読'}
+  ];
+  var type='hanare', checkin=null, checkout=null;
+  var saunaOn=false, saunaAdults=2, saunaSlot=null;
   var yen=function(n){return n.toLocaleString('ja-JP')+'円';};
 
-  // セレクト初期化
   function fill(id,min,max,def){var s=document.getElementById(id);for(var i=min;i<=max;i++){var o=document.createElement('option');o.value=i;o.textContent=i+'人';if(i===def)o.selected=true;s.appendChild(o);}}
   fill('sAdult',1,5,2); fill('s712',0,4,0); fill('s36',0,4,0); fill('s02',0,4,0);
   function val(id){return +document.getElementById(id).value;}
 
   function baseFor(dt){var d=dt.getDay();var t=type==='hanare'?{wk:24000,sun:26000,fri:30000,sat:34000}:{wk:16000,sun:17000,fri:20000,sat:22000};if(d===6)return t.sat;if(d===5)return t.fri;if(d===0)return t.sun;return t.wk;}
   function adultPer(dt){var a=val('sAdult')||1;return Math.round(baseFor(dt)*(OCC[a]||1)/100)*100;}
-  function totalFor(dt){ /* ★子供料金は仮 */
-    var a=val('sAdult'), ap=adultPer(dt);
-    var t=ap*a;
-    t += val('s712')*Math.round(ap*0.7/100)*100;  // 7-12歳=大人70%(仮)
-    t += val('s36')*3000;                          // 3-6歳=施設使用料3,000円(仮)
-    t += val('s02')*0;                             // 添寝0-2歳=無料(仮)
-    return t;
-  }
-  function roomsCount(){return val('sAdult')+val('s712')+val('s36');} // 添寝は定員外
+  function nightTotal(dt){return adultPer(dt)*val('sAdult') + val('s712')*Math.round(adultPer(dt)*0.7/100)*100 + val('s36')*3000;}
+  function roomsCount(){return val('sAdult')+val('s712')+val('s36');}
   function overCap(){return roomsCount()>CAP[type];}
-
-  function avail(dt){
-    if(dt<TODAY)return 'x';
-    var r=(dt.getDate()+dt.getMonth()*3)%9;
-    if(r===0)return 'x'; if(r===8)return 'cl'; if(r<=5)return 'few'; return 'ok';
-  }
+  function avail(dt){if(dt<TODAY)return 'x';var r=(dt.getDate()+dt.getMonth()*3)%9;if(r===0)return 'x';if(r===8)return 'cl';if(r<=5)return 'few';return 'ok';}
   var SYM={ok:'●',few:'▲',x:'✕',cl:'―'};
+  function nights(){return (checkin&&checkout)?Math.round((checkout-checkin)/86400000):0;}
+  function roomTotal(){if(!checkin||!checkout)return 0;var t=0,d=new Date(checkin);while(d<checkout){t+=nightTotal(d);d.setDate(d.getDate()+1);}return t;}
+  function saunaTotal(){return (saunaOn&&saunaSlot!=null)?SAUNA_PER*saunaAdults:0;}
+
+  function pickDate(dt){
+    if(!checkin || (checkin&&checkout)){ checkin=dt; checkout=null; }
+    else if(dt.getTime()<=checkin.getTime()){ checkin=dt; checkout=null; }
+    else { checkout=dt; }
+    refresh();
+  }
+  function inRange(dt){return checkin&&checkout&&dt>checkin&&dt<checkout;}
+  function isEdge(dt){return (checkin&&dt.getTime()===checkin.getTime())||(checkout&&dt.getTime()===checkout.getTime());}
 
   function buildMonth(y,m){
     var wrap=document.createElement('div'); wrap.className='mblock';
@@ -167,8 +207,7 @@
     ['月','火','水','木','金','土','日'].forEach(function(w,i){var d=document.createElement('div');d.textContent=w;if(i===5)d.className='b';if(i===6)d.className='r';dow.appendChild(d);});
     wrap.appendChild(dow);
     var grid=document.createElement('div'); grid.className='grid';
-    var days=new Date(y,m+1,0).getDate();
-    var lead=(new Date(y,m,1).getDay()+6)%7;
+    var days=new Date(y,m+1,0).getDate(); var lead=(new Date(y,m,1).getDay()+6)%7;
     for(var i=0;i<lead;i++){var b=document.createElement('div');b.className='cell blank';grid.appendChild(b);}
     for(var day=1;day<=days;day++){
       var dt=new Date(y,m,day); dt.setHours(0,0,0,0);
@@ -177,44 +216,63 @@
       var top='<div class="top"><span class="sym '+st+'">'+SYM[st]+'</span><span class="dn">'+day+'</span></div>';
       if(st==='ok'||st==='few'){
         c.innerHTML=top+'<div class="pr">'+yen(adultPer(dt))+'</div>';
-        (function(dd){c.onclick=function(){selected=dd;refresh();};})(dt);
+        (function(dd){c.onclick=function(){pickDate(dd);};})(dt);
+        if(isEdge(dt))c.classList.add('edge'); else if(inRange(dt))c.classList.add('mid');
       } else { c.classList.add('na'); c.innerHTML=top; }
-      if(selected && dt.getTime()===selected.getTime()) c.classList.add('sel');
       grid.appendChild(c);
     }
     wrap.appendChild(grid); return wrap;
   }
-
   function renderMonths(){
     var box=document.getElementById('months'); box.innerHTML='';
-    var m0=new Date(view), m1=new Date(view.getFullYear(),view.getMonth()+1,1);
-    box.appendChild(buildMonth(m0.getFullYear(),m0.getMonth()));
+    var m1=new Date(view.getFullYear(),view.getMonth()+1,1);
+    box.appendChild(buildMonth(view.getFullYear(),view.getMonth()));
     box.appendChild(buildMonth(m1.getFullYear(),m1.getMonth()));
     document.getElementById('prev').disabled=(view.getFullYear()===TODAY.getFullYear()&&view.getMonth()===TODAY.getMonth());
   }
 
+  function fmt(dt){var w=['日','月','火','水','木','金','土'][dt.getDay()];return (dt.getMonth()+1)+'/'+dt.getDate()+'（'+w+'）';}
+  function renderStay(){
+    var s=document.getElementById('stay');
+    if(!checkin){s.innerHTML='チェックイン日をお選びください';}
+    else if(!checkout){s.innerHTML='<b>IN '+fmt(checkin)+'</b> <span class="muted">→ チェックアウト日をお選びください</span>';}
+    else{s.innerHTML='<b>IN '+fmt(checkin)+' → OUT '+fmt(checkout)+'</b> <span class="muted">'+nights()+'泊</span>';}
+  }
+
+  function renderSlots(){
+    var box=document.getElementById('slots'); box.innerHTML='';
+    SLOTS.forEach(function(sl){
+      var d=document.createElement('div'); d.className='slot'+(saunaSlot===sl.id?' on':'');
+      d.innerHTML='<span class="t">'+sl.t+'</span><span class="r">'+sl.r+'</span>'+(sl.only?'<span class="bd">宿泊者専用</span>':'<span class="bd" style="background:#EEF2EC;color:var(--moss);">空き</span>');
+      d.onclick=function(){saunaSlot=sl.id;renderSlots();updateSummary();};
+      box.appendChild(d);
+    });
+  }
+  function updateSaunaNum(){document.getElementById('saVal').textContent=saunaAdults+' 名';document.getElementById('saMinus').disabled=(saunaAdults<=1);document.getElementById('saPlus').disabled=(saunaAdults>=4);}
+
   function updateSummary(){
-    var info=document.getElementById('sumInfo'), go=document.getElementById('goBtn');
     document.getElementById('warn').style.display=overCap()?'block':'none';
-    if(!selected){ info.innerHTML='<span class="muted">日付をお選びください</span>'; go.classList.add('off'); return; }
-    var w=['日','月','火','水','木','金','土'][selected.getDay()];
-    var typeName=type==='hanare'?'離れ':'長屋';
-    var g=[]; if(val('sAdult'))g.push('大人'+val('sAdult')); if(val('s712'))g.push('7-12歳'+val('s712')); if(val('s36'))g.push('3-6歳'+val('s36')); if(val('s02'))g.push('添寝'+val('s02'));
-    var head='<span class="big">'+(selected.getMonth()+1)+'月'+selected.getDate()+'日（'+w+'）</span> <span class="muted">'+typeName+'・'+g.join('/')+'・'+val('sNights')+'泊</span><br>';
-    if(overCap()){ info.innerHTML=head+'<span style="color:#F1B0A8;">定員を超えています</span>'; go.classList.add('off'); return; }
-    info.innerHTML=head+'<span>'+yen(totalFor(selected))+' <span class="muted">／1泊 合計・素泊まり</span></span>';
+    var info=document.getElementById('sumInfo'), go=document.getElementById('goBtn');
+    if(!checkin||!checkout){info.innerHTML='<span class="muted">'+(checkin?'チェックアウト日を選択':'日程をお選びください')+'</span>';go.classList.add('off');return;}
+    if(overCap()){info.innerHTML='<span style="color:#F1B0A8;">定員を超えています</span>';go.classList.add('off');return;}
+    if(saunaOn && saunaSlot==null){info.innerHTML='<span class="big">'+nights()+'泊</span> <span class="muted">サウナの枠をお選びください</span>';go.classList.add('off');return;}
+    var total=roomTotal()+saunaTotal();
+    var sx=(saunaOn&&saunaSlot!=null)?'＋サウナ'+saunaAdults+'名':'';
+    info.innerHTML='<span class="big">'+nights()+'泊</span> <span class="muted">'+(type==='hanare'?'離れ':'長屋')+sx+'</span><br><span>'+yen(total)+' <span class="muted">／合計・素泊まり</span></span>';
     go.classList.remove('off'); go.setAttribute('href','rooms.html');
   }
 
-  function refresh(){ renderMonths(); updateSummary(); }
+  function refresh(){renderMonths();renderStay();updateSummary();}
 
-  ['sAdult','s712','s36','s02','sNights'].forEach(function(id){document.getElementById(id).onchange=refresh;});
-  document.getElementById('prev').onclick=function(){ if(view.getFullYear()===TODAY.getFullYear()&&view.getMonth()===TODAY.getMonth())return; view.setMonth(view.getMonth()-1); refresh(); };
-  document.getElementById('next').onclick=function(){ view.setMonth(view.getMonth()+1); refresh(); };
-  document.querySelectorAll('.tab').forEach(function(t){t.onclick=function(){
-    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');}); t.classList.add('on');
-    type=t.getAttribute('data-type'); refresh();
-  };});
+  ['sAdult','s712','s36','s02'].forEach(function(id){document.getElementById(id).onchange=refresh;});
+  document.getElementById('prev').onclick=function(){if(view.getFullYear()===TODAY.getFullYear()&&view.getMonth()===TODAY.getMonth())return;view.setMonth(view.getMonth()-1);refresh();};
+  document.getElementById('next').onclick=function(){view.setMonth(view.getMonth()+1);refresh();};
+  document.querySelectorAll('.tab').forEach(function(t){t.onclick=function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});t.classList.add('on');type=t.getAttribute('data-type');refresh();};});
+
+  document.getElementById('saunaYes').onclick=function(){saunaOn=true;this.classList.add('on');document.getElementById('saunaNo').classList.remove('on');document.getElementById('sbody').style.display='block';renderSlots();updateSaunaNum();updateSummary();};
+  document.getElementById('saunaNo').onclick=function(){saunaOn=false;saunaSlot=null;this.classList.add('on');document.getElementById('saunaYes').classList.remove('on');document.getElementById('sbody').style.display='none';updateSummary();};
+  document.getElementById('saMinus').onclick=function(){if(saunaAdults>1){saunaAdults--;updateSaunaNum();updateSummary();}};
+  document.getElementById('saPlus').onclick=function(){if(saunaAdults<4){saunaAdults++;updateSaunaNum();updateSummary();}};
 
   refresh();
 })();
