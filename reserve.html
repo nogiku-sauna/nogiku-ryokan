@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ご予約カレンダー｜湯布院旅館のぎく</title>
+<title>ご予約｜湯布院旅館のぎく</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
@@ -11,93 +11,89 @@
   :root{
     --paper:#FAF8F3; --ink:#2B2A26; --sub:#6E6A61; --moss:#6E7B5B; --ai:#28455C;
     --gold:#B08D57; --line:#E6E1D7; --sat:#3E6E8E; --sun:#B0574E; --mute:#C7C1B5;
-    --ok:#2E9E86; --few:#E39A34; --xg:#BDB7AC; --sel:#EEF3F5;
+    --ok:#2E9E86; --few:#E39A34; --xg:#BDB7AC; --sel:#EEF3F5; --ph:#ECE8DF;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:"Noto Sans JP",sans-serif;color:var(--ink);background:var(--paper);line-height:1.8;-webkit-font-smoothing:antialiased;}
   .min{font-family:"Shippori Mincho",serif;}
   a{color:inherit;text-decoration:none;}
-  .wrap{max-width:520px;margin:0 auto;min-height:100vh;padding-bottom:96px;}
+  .wrap{max-width:520px;margin:0 auto;min-height:100vh;padding-bottom:88px;}
 
   .header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
     padding:12px 18px;background:rgba(250,248,243,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
   .header .brand{font-family:"Shippori Mincho",serif;font-weight:600;font-size:15px;letter-spacing:.12em;}
   .header a.back{font-size:12px;color:var(--sub);}
 
-  .titlebar{text-align:center;padding:20px 20px 6px;}
-  .titlebar .en{font-family:"Shippori Mincho",serif;font-size:11px;letter-spacing:.34em;color:var(--moss);text-transform:uppercase;}
-  .titlebar .jp{font-family:"Shippori Mincho",serif;font-weight:600;font-size:22px;letter-spacing:.14em;margin-top:6px;}
+  /* 進捗 */
+  .steps{display:flex;justify-content:center;gap:6px;padding:16px 16px 6px;}
+  .st{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;max-width:88px;}
+  .st .n{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--mute);
+    display:flex;align-items:center;justify-content:center;font-family:"Shippori Mincho",serif;font-size:13px;}
+  .st .t{font-size:10px;color:var(--mute);letter-spacing:.04em;}
+  .st.done .n{background:var(--moss);border-color:var(--moss);color:#fff;}
+  .st.cur .n{background:var(--ai);border-color:var(--ai);color:#fff;}
+  .st.cur .t,.st.done .t{color:var(--ink);}
 
-  .tabs{display:flex;gap:10px;justify-content:center;padding:8px 20px 2px;}
-  .tab{flex:1;max-width:170px;text-align:center;font-family:"Shippori Mincho",serif;font-size:14px;letter-spacing:.08em;
-    padding:10px 8px;border:1px solid var(--line);border-radius:2px;background:#fff;color:var(--sub);cursor:pointer;}
-  .tab .p{display:block;font-family:"Noto Sans JP";font-size:11px;color:var(--mute);margin-top:2px;}
-  .tab.on{border-color:var(--ai);background:var(--ai);color:#fff;} .tab.on .p{color:rgba(255,255,255,.75);}
+  .sec{padding:18px 20px 6px;}
+  .kicker{font-family:"Shippori Mincho",serif;font-size:11px;letter-spacing:.3em;color:var(--moss);text-transform:uppercase;text-align:center;}
+  .sec-title{font-family:"Shippori Mincho",serif;font-weight:600;font-size:20px;letter-spacing:.12em;text-align:center;margin:6px 0 16px;}
 
-  .lbl-c{text-align:center;font-family:"Shippori Mincho",serif;font-size:13px;letter-spacing:.1em;color:var(--sub);padding:14px 20px 2px;}
-  .sels{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:6px 14px 2px;}
+  /* プランカード */
+  .plan{border:1px solid var(--line);border-radius:3px;background:#fff;padding:16px 18px;margin-bottom:12px;cursor:pointer;}
+  .plan.on{border-color:var(--ai);background:var(--sel);}
+  .plan .pn{font-family:"Shippori Mincho",serif;font-weight:600;font-size:17px;letter-spacing:.06em;}
+  .plan .pd{font-size:12.5px;color:var(--sub);margin-top:5px;}
+  .plan .pt{font-size:11px;color:var(--gold);margin-top:6px;}
+
+  /* 人数 */
+  .sels{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
   .selc{display:flex;flex-direction:column;align-items:center;gap:3px;}
   .selc label{font-size:10px;color:var(--sub);}
-  .selc select{padding:8px 6px;border:1px solid var(--line);border-radius:2px;background:#fff;font-family:inherit;font-size:13px;min-width:62px;text-align:center;color:var(--ink);}
-  .warn{margin:8px 18px 0;border:1px solid var(--sun);background:#FBEEEC;color:var(--sun);border-radius:2px;padding:9px 12px;font-size:12px;text-align:center;}
+  .selc select{padding:9px 6px;border:1px solid var(--line);border-radius:2px;background:#fff;font-family:inherit;font-size:14px;min-width:66px;text-align:center;color:var(--ink);}
+  .warn{margin:14px 0 0;border:1px solid var(--sun);background:#FBEEEC;color:var(--sun);border-radius:2px;padding:11px 12px;font-size:12.5px;text-align:center;line-height:1.7;}
 
-  .stay{text-align:center;font-family:"Shippori Mincho",serif;font-size:14px;letter-spacing:.06em;padding:14px 20px 2px;color:var(--ink);}
+  /* お部屋 */
+  .rc{display:flex;background:#fff;border:1px solid var(--line);border-radius:3px;overflow:hidden;margin-bottom:12px;cursor:pointer;}
+  .rc.on{outline:2px solid var(--ai);outline-offset:-2px;}
+  .rc.dis{opacity:.5;cursor:default;}
+  .rc .ph{flex:0 0 118px;background:var(--ph);display:flex;align-items:center;justify-content:center;color:#A9A292;font-size:11px;text-align:center;padding:6px;}
+  .rc .b{flex:1;padding:12px 14px;}
+  .rc .rn{font-family:"Shippori Mincho",serif;font-weight:600;font-size:15px;letter-spacing:.05em;}
+  .rc .rs{font-size:11.5px;color:var(--sub);margin:4px 0 6px;}
+  .rc .rx{font-size:11px;color:var(--sun);}
+
+  /* カレンダー */
+  .stay{text-align:center;font-family:"Shippori Mincho",serif;font-size:14px;letter-spacing:.06em;padding:2px 20px 6px;}
   .stay .muted{color:var(--mute);font-family:"Noto Sans JP";font-size:12px;}
-
-  .monthnav{display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 20px 2px;}
-  .monthnav button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:18px;cursor:pointer;}
+  .monthnav{display:flex;align-items:center;justify-content:center;gap:20px;padding:6px 20px 2px;}
+  .monthnav button{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:18px;cursor:pointer;}
   .monthnav button:disabled{opacity:.3;cursor:default;}
   .monthnav .lbl{font-family:"Shippori Mincho",serif;font-size:12px;color:var(--sub);letter-spacing:.08em;}
-
-  .mblock{margin:14px 12px 0;}
-  .mtitle{text-align:center;font-family:"Shippori Mincho",serif;font-weight:600;font-size:17px;letter-spacing:.12em;margin-bottom:8px;}
+  .mblock{margin:12px 0 0;}
+  .mtitle{text-align:center;font-family:"Shippori Mincho",serif;font-weight:600;font-size:16px;letter-spacing:.12em;margin-bottom:8px;}
   .dow{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;color:var(--sub);padding-bottom:5px;}
   .dow .b{color:var(--sat);} .dow .r{color:var(--sun);}
   .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:2px;overflow:hidden;}
-  .cell{background:#fff;min-height:60px;padding:5px 5px 4px;display:flex;flex-direction:column;cursor:pointer;position:relative;}
+  .cell{background:#fff;min-height:58px;padding:5px 4px 4px;display:flex;flex-direction:column;cursor:pointer;}
   .cell .top{display:flex;align-items:center;justify-content:space-between;}
   .cell .sym{font-size:12px;line-height:1;}
   .cell .sym.ok{color:var(--ok);} .cell .sym.few{color:var(--few);} .cell .sym.x,.cell .sym.cl{color:var(--xg);}
-  .cell .dn{font-size:12px;color:var(--ink);}
-  .cell.sat .dn{color:var(--sat);} .cell.sun .dn{color:var(--sun);}
-  .cell .pr{font-size:10px;color:var(--ink);text-align:center;margin-top:auto;letter-spacing:-.03em;}
-  .cell.blank{background:#F4F1EA;cursor:default;}
-  .cell.na{background:#F4F1EA;cursor:default;} .cell.na .dn{color:var(--mute);}
-  .cell.mid{background:var(--sel);}
-  .cell.edge{background:var(--sel);outline:2px solid var(--ai);outline-offset:-2px;}
-
+  .cell .dn{font-size:12px;} .cell.sat .dn{color:var(--sat);} .cell.sun .dn{color:var(--sun);}
+  .cell .pr{font-size:10px;text-align:center;margin-top:auto;letter-spacing:-.03em;}
+  .cell.blank{background:#F4F1EA;cursor:default;} .cell.na{background:#F4F1EA;cursor:default;} .cell.na .dn{color:var(--mute);}
+  .cell.mid{background:var(--sel);} .cell.edge{background:var(--sel);outline:2px solid var(--ai);outline-offset:-2px;}
   .legend{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;font-size:11px;color:var(--sub);padding:14px 20px 4px;}
-  .legend span{display:inline-flex;align-items:center;gap:4px;} .legend .s{font-size:12px;} .legend .ok{color:var(--ok);} .legend .few{color:var(--few);} .legend .x{color:var(--xg);}
-
-  /* サウナ */
-  .sauna{margin-top:16px;border-top:8px solid #F0ECE3;padding:20px 20px 4px;}
-  .sauna .q{font-family:"Shippori Mincho",serif;font-size:16px;letter-spacing:.06em;text-align:center;margin-bottom:12px;}
-  .sauna .opt{display:flex;gap:10px;justify-content:center;}
-  .sauna .opt button{flex:1;max-width:170px;padding:12px;border:1px solid var(--line);border-radius:2px;background:#fff;
-    font-family:"Shippori Mincho",serif;font-size:14px;letter-spacing:.06em;cursor:pointer;color:var(--sub);}
-  .sauna .opt button.on{border-color:var(--ai);background:var(--ai);color:#fff;}
-  .sbody{margin-top:16px;}
-  .snum{display:flex;align-items:center;justify-content:space-between;padding:2px 4px 12px;}
-  .snum .l{font-family:"Shippori Mincho",serif;font-size:14px;letter-spacing:.08em;}
-  .snum .l small{font-family:"Noto Sans JP";font-size:11px;color:var(--mute);margin-left:6px;}
-  .stepper{display:flex;align-items:center;gap:14px;}
-  .stepper button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:17px;cursor:pointer;}
-  .stepper button:disabled{opacity:.3;cursor:default;} .stepper .v{font-family:"Shippori Mincho",serif;font-size:16px;min-width:46px;text-align:center;}
-  .slot{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:2px;background:#fff;padding:12px 14px;margin-bottom:8px;cursor:pointer;}
-  .slot.on{border-color:var(--ai);background:var(--sel);}
-  .slot .t{font-family:"Shippori Mincho",serif;font-size:14px;min-width:118px;}
-  .slot .r{font-size:12px;color:var(--sub);}
-  .slot .bd{margin-left:auto;font-size:10px;padding:2px 8px;border-radius:999px;background:#F1EEE5;color:var(--gold);}
+  .legend span{display:inline-flex;align-items:center;gap:4px;} .legend .ok{color:var(--ok);} .legend .few{color:var(--few);} .legend .x{color:var(--xg);}
+  .note{text-align:center;font-size:11px;color:var(--mute);padding:2px 20px 12px;}
 
   .bar{position:fixed;left:0;right:0;bottom:0;z-index:40;max-width:520px;margin:0 auto;
-    background:var(--ink);padding:10px 16px;display:flex;align-items:center;gap:12px;}
-  .bar .info{flex:1;color:#fff;font-size:12px;line-height:1.5;}
-  .bar .info .big{font-family:"Shippori Mincho",serif;font-size:15px;letter-spacing:.06em;}
+    background:var(--ink);padding:10px 14px;display:flex;align-items:center;gap:10px;}
+  .bar .bk{flex:0 0 auto;background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:2px;padding:10px 14px;font-size:13px;cursor:pointer;}
+  .bar .info{flex:1;color:#fff;font-size:12px;line-height:1.4;}
+  .bar .info .big{font-family:"Shippori Mincho",serif;font-size:14px;}
   .bar .info .muted{color:rgba(255,255,255,.6);}
-  .bar a{flex:0 0 auto;background:var(--paper);color:var(--ink);font-family:"Shippori Mincho",serif;font-weight:600;
-    padding:12px 18px;border-radius:2px;font-size:13.5px;letter-spacing:.06em;}
-  .bar a.off{opacity:.4;pointer-events:none;}
-  .note{text-align:center;font-size:11px;color:var(--mute);padding:2px 20px 12px;}
+  .bar .nx{flex:0 0 auto;background:var(--paper);color:var(--ink);font-family:"Shippori Mincho",serif;font-weight:600;padding:11px 20px;border-radius:2px;font-size:14px;letter-spacing:.06em;border:none;cursor:pointer;}
+  .bar .nx.off{opacity:.4;pointer-events:none;}
 </style>
 </head>
 <body>
@@ -108,99 +104,128 @@
     <a class="back" href="index.html">← トップへ</a>
   </div>
 
-  <div class="titlebar"><div class="en">Reservation</div><div class="jp">ご予約</div></div>
-
-  <div class="tabs">
-    <div class="tab on" data-type="hanare">離れ<span class="p">3室・定員5名</span></div>
-    <div class="tab" data-type="nagaya">長屋<span class="p">4室・定員3名</span></div>
+  <div class="steps" id="steps">
+    <div class="st" data-s="1"><div class="n">一</div><div class="t">プラン</div></div>
+    <div class="st" data-s="2"><div class="n">二</div><div class="t">人数</div></div>
+    <div class="st" data-s="3"><div class="n">三</div><div class="t">お部屋</div></div>
+    <div class="st" data-s="4"><div class="n">四</div><div class="t">日付</div></div>
   </div>
 
-  <div class="lbl-c">ご宿泊の人数</div>
-  <div class="sels">
-    <div class="selc"><label>大人（13歳〜）</label><select id="sAdult"></select></div>
-    <div class="selc"><label>7-12歳</label><select id="s712"></select></div>
-    <div class="selc"><label>3-6歳</label><select id="s36"></select></div>
-    <div class="selc"><label>添寝 0-2歳</label><select id="s02"></select></div>
-  </div>
-  <div class="warn" id="warn" style="display:none;">定員（大人＋子供）を超えています。人数をご確認ください。</div>
-
-  <!-- 貸切サウナ（人数のすぐ下） -->
-  <div class="sauna">
-    <div class="q">貸切サウナを追加しますか？</div>
-    <div class="opt">
-      <button id="saunaYes">追加する</button>
-      <button id="saunaNo" class="on">追加しない</button>
+  <!-- ① プラン -->
+  <div class="sec" id="step1">
+    <div class="kicker">Step 1</div><div class="sec-title">プランをお選びください</div>
+    <div class="plan" data-plan="sudomari">
+      <div class="pn">素泊まり</div>
+      <div class="pd">お食事なし。由布院の街を、自由にお楽しみください。</div>
     </div>
-    <div class="sbody" id="sbody" style="display:none;">
-      <div class="snum">
-        <div class="l">サウナの人数 <small>大人・13歳〜</small></div>
-        <div class="stepper"><button id="saMinus">−</button><span class="v" id="saVal">2 名</span><button id="saPlus">＋</button></div>
-      </div>
-      <div id="slots"></div>
+    <div class="plan" data-plan="sauna">
+      <div class="pn">サウナ付き素泊まり</div>
+      <div class="pd">素泊まりに、120分の貸切サウナ「天照・月読」が付いたプラン。</div>
+      <div class="pt">＊サウナは13歳以上のみご利用いただけます</div>
     </div>
   </div>
 
-  <div class="stay" id="stay">チェックイン日をお選びください</div>
-
-  <div class="monthnav"><button id="prev">‹</button><span class="lbl">月を移動</span><button id="next">›</button></div>
-  <div id="months"></div>
-
-  <div class="legend">
-    <span><span class="s ok">●</span>空室あり</span>
-    <span><span class="s few">▲</span>残りわずか</span>
-    <span><span class="s x">✕</span>不可</span>
-    <span><span class="s x">―</span>休館</span>
+  <!-- ② 人数 -->
+  <div class="sec" id="step2" style="display:none;">
+    <div class="kicker">Step 2</div><div class="sec-title">ご宿泊の人数</div>
+    <div class="sels">
+      <div class="selc"><label>大人（13歳〜）</label><select id="sAdult"></select></div>
+      <div class="selc"><label>7-12歳</label><select id="s712"></select></div>
+      <div class="selc"><label>3-6歳</label><select id="s36"></select></div>
+      <div class="selc"><label>添寝 0-2歳</label><select id="s02"></select></div>
+    </div>
+    <div class="warn" id="warn" style="display:none;"></div>
   </div>
 
-  <div class="note">料金・サウナ枠はすべて仮です（サウナの空きは後日Squareと連動）。</div>
+  <!-- ③ お部屋 -->
+  <div class="sec" id="step3" style="display:none;">
+    <div class="kicker">Step 3</div><div class="sec-title">お部屋をお選びください</div>
+    <div id="roomList"></div>
+  </div>
+
+  <!-- ④ 日付 -->
+  <div class="sec" id="step4" style="display:none;">
+    <div class="kicker">Step 4</div><div class="sec-title">日付をお選びください</div>
+    <div class="stay" id="stay">チェックイン日をお選びください</div>
+    <div class="monthnav"><button id="prev">‹</button><span class="lbl">月を移動</span><button id="next">›</button></div>
+    <div id="months"></div>
+    <div class="legend">
+      <span><span class="ok">●</span>空室あり</span><span><span class="few">▲</span>残りわずか</span>
+      <span><span class="x">✕</span>不可</span><span><span class="x">―</span>休館</span>
+    </div>
+    <div class="note">料金・空き状況はすべて仮です（後日 予約エンジン／Squareと連動）。</div>
+  </div>
 
 </div>
 
 <div class="bar">
-  <div class="info" id="sumInfo"><span class="muted">日程をお選びください</span></div>
-  <a href="#" id="goBtn" class="off">予約へ進む</a>
+  <button class="bk" id="backBtn" style="visibility:hidden;">戻る</button>
+  <div class="info" id="info"><span class="muted">プランをお選びください</span></div>
+  <button class="nx off" id="nextBtn">次へ</button>
 </div>
 
 <script>
 (function(){
   var TODAY=new Date(2026,7,14); TODAY.setHours(0,0,0,0);
   var view=new Date(2026,7,1);
-  var CAP={hanare:5,nagaya:3};
   var OCC={1:1.4,2:1.0,3:0.92,4:0.86,5:0.82};
-  var SAUNA_PER=3000; /* ★サウナ 大人1名あたり(仮) */
-  var SLOTS=[
-    {id:0,t:'13:30〜15:30',r:'天照'},{id:1,t:'16:00〜18:00',r:'天照'},
-    {id:2,t:'17:00〜19:00',r:'月読'},{id:3,t:'18:30〜20:30',r:'天照'},
-    {id:4,t:'19:30〜21:30',r:'月読',only:true},{id:5,t:'翌 9:30〜11:30',r:'月読'}
+  var SAUNA_PER=4000; /* ★サウナ 大人1名あたり(仮・120分貸切) */
+  var ROOMS=[
+    {id:'h1',type:'hanare',cap:5,name:'離れ・由布岳側',spec:'露天風呂付／和室二間／約57㎡'},
+    {id:'h2',type:'hanare',cap:5,name:'離れ・庭側',spec:'露天風呂付／和室二間／約57㎡'},
+    {id:'h3',type:'hanare',cap:5,name:'離れ・奥',spec:'露天風呂付／和室二間／約57㎡'},
+    {id:'n1',type:'nagaya',cap:3,name:'長屋・つるみ（内風呂）',spec:'内風呂／和室10畳／約37㎡'},
+    {id:'n2',type:'nagaya',cap:3,name:'長屋・A',spec:'客室風呂付／和室10畳／約37㎡'},
+    {id:'n3',type:'nagaya',cap:3,name:'長屋・B',spec:'客室風呂付／和室10畳／約37㎡'},
+    {id:'n4',type:'nagaya',cap:3,name:'長屋・C',spec:'客室風呂付／和室10畳／約37㎡'}
   ];
-  var type='hanare', checkin=null, checkout=null;
-  var saunaOn=false, saunaAdults=2, saunaSlot=null;
+  var step=1, plan=null, room=null, checkin=null, checkout=null;
   var yen=function(n){return n.toLocaleString('ja-JP')+'円';};
 
   function fill(id,min,max,def){var s=document.getElementById(id);for(var i=min;i<=max;i++){var o=document.createElement('option');o.value=i;o.textContent=i+'人';if(i===def)o.selected=true;s.appendChild(o);}}
   fill('sAdult',1,5,2); fill('s712',0,4,0); fill('s36',0,4,0); fill('s02',0,4,0);
   function val(id){return +document.getElementById(id).value;}
+  function children(){return val('s712')+val('s36')+val('s02');}
+  function guests(){return val('sAdult')+val('s712')+val('s36');} /* 定員判定（添寝除く） */
 
-  function baseFor(dt){var d=dt.getDay();var t=type==='hanare'?{wk:24000,sun:26000,fri:30000,sat:34000}:{wk:16000,sun:17000,fri:20000,sat:22000};if(d===6)return t.sat;if(d===5)return t.fri;if(d===0)return t.sun;return t.wk;}
+  function roomType(){return room?ROOMS.filter(function(r){return r.id===room;})[0].type:'hanare';}
+  function baseFor(dt){var d=dt.getDay();var t=roomType()==='hanare'?{wk:24000,sun:26000,fri:30000,sat:34000}:{wk:16000,sun:17000,fri:20000,sat:22000};if(d===6)return t.sat;if(d===5)return t.fri;if(d===0)return t.sun;return t.wk;}
   function adultPer(dt){var a=val('sAdult')||1;return Math.round(baseFor(dt)*(OCC[a]||1)/100)*100;}
-  function nightTotal(dt){return adultPer(dt)*val('sAdult') + val('s712')*Math.round(adultPer(dt)*0.7/100)*100 + val('s36')*3000;}
-  function roomsCount(){return val('sAdult')+val('s712')+val('s36');}
-  function overCap(){return roomsCount()>CAP[type];}
-  function avail(dt){if(dt<TODAY)return 'x';var r=(dt.getDate()+dt.getMonth()*3)%9;if(r===0)return 'x';if(r===8)return 'cl';if(r<=5)return 'few';return 'ok';}
-  var SYM={ok:'●',few:'▲',x:'✕',cl:'―'};
+  function nightTotal(dt){return adultPer(dt)*val('sAdult')+val('s712')*Math.round(adultPer(dt)*0.7/100)*100+val('s36')*3000;}
   function nights(){return (checkin&&checkout)?Math.round((checkout-checkin)/86400000):0;}
   function roomTotal(){if(!checkin||!checkout)return 0;var t=0,d=new Date(checkin);while(d<checkout){t+=nightTotal(d);d.setDate(d.getDate()+1);}return t;}
-  function saunaTotal(){return (saunaOn&&saunaSlot!=null)?SAUNA_PER*saunaAdults:0;}
+  function saunaTotal(){return plan==='sauna'?SAUNA_PER*val('sAdult'):0;}
+  function grandTotal(){return roomTotal()+saunaTotal();}
 
-  function pickDate(dt){
-    if(!checkin || (checkin&&checkout)){ checkin=dt; checkout=null; }
-    else if(dt.getTime()<=checkin.getTime()){ checkin=dt; checkout=null; }
-    else { checkout=dt; }
-    refresh();
+  /* 人数バリデーション：サウナ付きで子供がいたらNG */
+  function step2Valid(){
+    var w=document.getElementById('warn');
+    if(plan==='sauna' && children()>0){
+      w.style.display='block';
+      w.innerHTML='サウナは<b>13歳以上のみ</b>ご利用いただけます。<br>12歳以下のお子様はサウナをご利用いただけません（素泊まりプランをお選びください）。';
+      return false;
+    }
+    if(guests()<1){w.style.display='none';return false;}
+    w.style.display='none'; return true;
   }
+
+  function renderRooms(){
+    var box=document.getElementById('roomList'); box.innerHTML='';
+    ROOMS.forEach(function(r){
+      var fits=r.cap>=guests();
+      var c=document.createElement('div'); c.className='rc'+(room===r.id?' on':'')+(fits?'':' dis');
+      c.innerHTML='<div class="ph">写真<br>'+r.name+'</div><div class="b"><div class="rn">'+r.name+'</div><div class="rs">'+r.spec+'／定員'+r.cap+'名</div>'+(fits?'<div class="rs" style="color:var(--ai);">このお部屋を選ぶ →</div>':'<div class="rx">この人数では選べません（定員'+r.cap+'名）</div>')+'</div>';
+      if(fits){c.onclick=function(){room=r.id;renderRooms();updateBar();};}
+      box.appendChild(c);
+    });
+  }
+
+  /* カレンダー */
+  function avail(dt){if(dt<TODAY)return 'x';var r=(dt.getDate()+dt.getMonth()*3)%9;if(r===0)return 'x';if(r===8)return 'cl';if(r<=5)return 'few';return 'ok';}
+  var SYM={ok:'●',few:'▲',x:'✕',cl:'―'};
+  function pickDate(dt){if(!checkin||(checkin&&checkout)){checkin=dt;checkout=null;}else if(dt.getTime()<=checkin.getTime()){checkin=dt;checkout=null;}else{checkout=dt;}renderMonths();renderStay();updateBar();}
   function inRange(dt){return checkin&&checkout&&dt>checkin&&dt<checkout;}
   function isEdge(dt){return (checkin&&dt.getTime()===checkin.getTime())||(checkout&&dt.getTime()===checkout.getTime());}
-
   function buildMonth(y,m){
     var wrap=document.createElement('div'); wrap.className='mblock';
     var title=document.createElement('div'); title.className='mtitle'; title.textContent=y+'年 '+(m+1)+'月'; wrap.appendChild(title);
@@ -215,67 +240,48 @@
       var st=avail(dt); var c=document.createElement('div'); c.className='cell';
       if(dt.getDay()===6)c.classList.add('sat'); if(dt.getDay()===0)c.classList.add('sun');
       var top='<div class="top"><span class="sym '+st+'">'+SYM[st]+'</span><span class="dn">'+day+'</span></div>';
-      if(st==='ok'||st==='few'){
-        c.innerHTML=top+'<div class="pr">'+yen(adultPer(dt))+'</div>';
-        (function(dd){c.onclick=function(){pickDate(dd);};})(dt);
-        if(isEdge(dt))c.classList.add('edge'); else if(inRange(dt))c.classList.add('mid');
-      } else { c.classList.add('na'); c.innerHTML=top; }
+      if(st==='ok'||st==='few'){c.innerHTML=top+'<div class="pr">'+yen(adultPer(dt))+'</div>';(function(dd){c.onclick=function(){pickDate(dd);};})(dt);if(isEdge(dt))c.classList.add('edge');else if(inRange(dt))c.classList.add('mid');}
+      else {c.classList.add('na');c.innerHTML=top;}
       grid.appendChild(c);
     }
     wrap.appendChild(grid); return wrap;
   }
-  function renderMonths(){
-    var box=document.getElementById('months'); box.innerHTML='';
-    var m1=new Date(view.getFullYear(),view.getMonth()+1,1);
-    box.appendChild(buildMonth(view.getFullYear(),view.getMonth()));
-    box.appendChild(buildMonth(m1.getFullYear(),m1.getMonth()));
-    document.getElementById('prev').disabled=(view.getFullYear()===TODAY.getFullYear()&&view.getMonth()===TODAY.getMonth());
-  }
-
+  function renderMonths(){var box=document.getElementById('months');box.innerHTML='';var m1=new Date(view.getFullYear(),view.getMonth()+1,1);box.appendChild(buildMonth(view.getFullYear(),view.getMonth()));box.appendChild(buildMonth(m1.getFullYear(),m1.getMonth()));document.getElementById('prev').disabled=(view.getFullYear()===TODAY.getFullYear()&&view.getMonth()===TODAY.getMonth());}
   function fmt(dt){var w=['日','月','火','水','木','金','土'][dt.getDay()];return (dt.getMonth()+1)+'/'+dt.getDate()+'（'+w+'）';}
-  function renderStay(){
-    var s=document.getElementById('stay');
-    if(!checkin){s.innerHTML='チェックイン日をお選びください';}
-    else if(!checkout){s.innerHTML='<b>IN '+fmt(checkin)+'</b> <span class="muted">→ チェックアウト日をお選びください</span>';}
-    else{s.innerHTML='<b>IN '+fmt(checkin)+' → OUT '+fmt(checkout)+'</b> <span class="muted">'+nights()+'泊</span>';}
+  function renderStay(){var s=document.getElementById('stay');if(!checkin){s.innerHTML='チェックイン日をお選びください';}else if(!checkout){s.innerHTML='<b>IN '+fmt(checkin)+'</b> <span class="muted">→ チェックアウト日を</span>';}else{s.innerHTML='<b>IN '+fmt(checkin)+' → OUT '+fmt(checkout)+'</b> <span class="muted">'+nights()+'泊</span>';}}
+
+  /* ステップ制御 */
+  function showStep(n){
+    step=n;
+    [1,2,3,4].forEach(function(i){document.getElementById('step'+i).style.display=(i===n)?'block':'none';});
+    document.querySelectorAll('.st').forEach(function(el){var s=+el.getAttribute('data-s');el.className='st'+(s<n?' done':'')+(s===n?' cur':'');});
+    document.getElementById('backBtn').style.visibility=(n>1)?'visible':'hidden';
+    if(n===3)renderRooms();
+    if(n===4){renderMonths();renderStay();}
+    updateBar();
+  }
+  function updateBar(){
+    var nx=document.getElementById('nextBtn'), info=document.getElementById('info');
+    if(step===1){info.innerHTML=plan?'<span class="big">'+(plan==='sauna'?'サウナ付き素泊まり':'素泊まり')+'</span>':'<span class="muted">プランをお選びください</span>';nx.textContent='次へ';nx.className='nx'+(plan?'':' off');}
+    else if(step===2){var ok=step2Valid();info.innerHTML='<span class="muted">大人'+val('sAdult')+(children()?'／子供'+children():'')+'名</span>';nx.textContent='次へ';nx.className='nx'+(ok?'':' off');}
+    else if(step===3){info.innerHTML=room?'<span class="big">'+ROOMS.filter(function(r){return r.id===room;})[0].name+'</span>':'<span class="muted">お部屋をお選びください</span>';nx.textContent='次へ';nx.className='nx'+(room?'':' off');}
+    else {var done=checkin&&checkout;info.innerHTML=done?('<span class="big">'+nights()+'泊</span> <span class="muted">'+(plan==='sauna'?'＋サウナ':'')+'</span><br>'+yen(grandTotal())+' <span class="muted">合計</span>'):'<span class="muted">日程をお選びください</span>';nx.textContent='予約へ進む';nx.className='nx'+(done?'':' off');}
+  }
+  function next(){
+    if(step===1&&plan){showStep(2);}
+    else if(step===2&&step2Valid()){showStep(3);}
+    else if(step===3&&room){showStep(4);}
+    else if(step===4&&checkin&&checkout){window.location.href='#';/* ★予約エンジンのURLに */}
   }
 
-  function renderSlots(){
-    var box=document.getElementById('slots'); box.innerHTML='';
-    SLOTS.forEach(function(sl){
-      var d=document.createElement('div'); d.className='slot'+(saunaSlot===sl.id?' on':'');
-      d.innerHTML='<span class="t">'+sl.t+'</span><span class="r">'+sl.r+'</span>'+(sl.only?'<span class="bd">宿泊者専用</span>':'<span class="bd" style="background:#EEF2EC;color:var(--moss);">空き</span>');
-      d.onclick=function(){saunaSlot=sl.id;renderSlots();updateSummary();};
-      box.appendChild(d);
-    });
-  }
-  function updateSaunaNum(){document.getElementById('saVal').textContent=saunaAdults+' 名';document.getElementById('saMinus').disabled=(saunaAdults<=1);document.getElementById('saPlus').disabled=(saunaAdults>=4);}
+  document.querySelectorAll('.plan').forEach(function(p){p.onclick=function(){plan=p.getAttribute('data-plan');document.querySelectorAll('.plan').forEach(function(x){x.classList.remove('on');});p.classList.add('on');updateBar();};});
+  ['sAdult','s712','s36','s02'].forEach(function(id){document.getElementById(id).onchange=function(){updateBar();};});
+  document.getElementById('nextBtn').onclick=next;
+  document.getElementById('backBtn').onclick=function(){if(step>1)showStep(step-1);};
+  document.getElementById('prev').onclick=function(){if(view.getFullYear()===TODAY.getFullYear()&&view.getMonth()===TODAY.getMonth())return;view.setMonth(view.getMonth()-1);renderMonths();};
+  document.getElementById('next').onclick=function(){view.setMonth(view.getMonth()+1);renderMonths();};
 
-  function updateSummary(){
-    document.getElementById('warn').style.display=overCap()?'block':'none';
-    var info=document.getElementById('sumInfo'), go=document.getElementById('goBtn');
-    if(!checkin||!checkout){info.innerHTML='<span class="muted">'+(checkin?'チェックアウト日を選択':'日程をお選びください')+'</span>';go.classList.add('off');return;}
-    if(overCap()){info.innerHTML='<span style="color:#F1B0A8;">定員を超えています</span>';go.classList.add('off');return;}
-    if(saunaOn && saunaSlot==null){info.innerHTML='<span class="big">'+nights()+'泊</span> <span class="muted">サウナの枠をお選びください</span>';go.classList.add('off');return;}
-    var total=roomTotal()+saunaTotal();
-    var sx=(saunaOn&&saunaSlot!=null)?'＋サウナ'+saunaAdults+'名':'';
-    info.innerHTML='<span class="big">'+nights()+'泊</span> <span class="muted">'+(type==='hanare'?'離れ':'長屋')+sx+'</span><br><span>'+yen(total)+' <span class="muted">／合計・素泊まり</span></span>';
-    go.classList.remove('off'); go.setAttribute('href','rooms.html');
-  }
-
-  function refresh(){renderMonths();renderStay();updateSummary();}
-
-  ['sAdult','s712','s36','s02'].forEach(function(id){document.getElementById(id).onchange=refresh;});
-  document.getElementById('prev').onclick=function(){if(view.getFullYear()===TODAY.getFullYear()&&view.getMonth()===TODAY.getMonth())return;view.setMonth(view.getMonth()-1);refresh();};
-  document.getElementById('next').onclick=function(){view.setMonth(view.getMonth()+1);refresh();};
-  document.querySelectorAll('.tab').forEach(function(t){t.onclick=function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});t.classList.add('on');type=t.getAttribute('data-type');refresh();};});
-
-  document.getElementById('saunaYes').onclick=function(){saunaOn=true;this.classList.add('on');document.getElementById('saunaNo').classList.remove('on');document.getElementById('sbody').style.display='block';renderSlots();updateSaunaNum();updateSummary();};
-  document.getElementById('saunaNo').onclick=function(){saunaOn=false;saunaSlot=null;this.classList.add('on');document.getElementById('saunaYes').classList.remove('on');document.getElementById('sbody').style.display='none';updateSummary();};
-  document.getElementById('saMinus').onclick=function(){if(saunaAdults>1){saunaAdults--;updateSaunaNum();updateSummary();}};
-  document.getElementById('saPlus').onclick=function(){if(saunaAdults<4){saunaAdults++;updateSaunaNum();updateSummary();}};
-
-  refresh();
+  showStep(1);
 })();
 </script>
 </body>
