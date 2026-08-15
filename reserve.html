@@ -80,7 +80,19 @@
   .cell.mid{background:var(--sel);} .cell.edge{background:var(--sel);outline:2px solid var(--ai);outline-offset:-2px;}
   .legend{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;font-size:11px;color:var(--sub);padding:14px 20px 4px;}
   .legend span{display:inline-flex;align-items:center;gap:4px;} .legend .ok{color:var(--ok);} .legend .few{color:var(--few);} .legend .x{color:var(--xg);}
-  .note{text-align:center;font-size:11px;color:var(--mute);padding:2px 20px 14px;}
+
+  /* サウナ枠（④の中・サウナ付きの人だけ） */
+  #saunaSlots{padding:12px 20px 0;scroll-margin-top:100px;border-radius:6px;transition:box-shadow .2s;}
+  #saunaSlots.flash{box-shadow:0 0 0 2px var(--sun);}
+  .stitle{font-family:"Shippori Mincho",serif;font-size:15px;text-align:center;letter-spacing:.06em;margin:6px 0 12px;}
+  .stitle .ssub{font-family:"Noto Sans JP";font-size:11px;color:var(--sub);margin-left:6px;}
+  .slot{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:2px;background:#fff;padding:11px 14px;margin-bottom:8px;cursor:pointer;}
+  .slot.on{border-color:var(--ai);background:var(--sel);}
+  .slot .t{font-family:"Shippori Mincho",serif;font-size:14px;min-width:112px;}
+  .slot .r{font-size:12px;color:var(--sub);}
+  .slot .bd{margin-left:auto;font-size:10px;padding:2px 8px;border-radius:999px;background:#F1EEE5;color:var(--gold);}
+  .slot .bd.ok{background:#EEF2EC;color:var(--moss);}
+  .note{text-align:center;font-size:11px;color:var(--mute);padding:8px 20px 14px;}
 
   .bar{position:fixed;left:0;right:0;bottom:0;z-index:40;max-width:520px;margin:0 auto;
     background:var(--ink);padding:10px 14px;display:flex;align-items:center;gap:10px;}
@@ -151,6 +163,8 @@
       <span><span class="x">✕</span>不可</span><span><span class="x">―</span>休館</span>
     </div>
     <div class="hint" id="hint4">日程（IN・OUT）をお選びください。</div>
+    <div id="saunaSlots" style="display:none;"></div>
+    <div class="hint" id="hintS">サウナの枠をお選びください。</div>
     <div class="note">料金・空き状況はすべて仮です（後日 予約エンジン／Squareと連動）。</div>
   </div>
 
@@ -171,7 +185,12 @@
     {id:'hanare',type:'hanare',cap:5,name:'離れ',spec:'露天風呂付／和室二間／約57㎡'},
     {id:'nagaya',type:'nagaya',cap:3,name:'長屋',spec:'客室風呂付／和室10畳／約37㎡（つるみ＝内風呂あり）'}
   ];
-  var plan=null, room=null, checkin=null, checkout=null;
+  var SLOTS=[
+    {id:0,t:'13:30〜15:30',r:'天照'},{id:1,t:'16:00〜18:00',r:'天照'},
+    {id:2,t:'17:00〜19:00',r:'月読'},{id:3,t:'18:30〜20:30',r:'天照'},
+    {id:4,t:'19:30〜21:30',r:'月読',only:true},{id:5,t:'翌 9:30〜11:30',r:'月読'}
+  ];
+  var plan=null, room=null, checkin=null, checkout=null, saunaSlot=null;
   var yen=function(n){return n.toLocaleString('ja-JP')+'円';};
 
   function fill(id,min,max,def){var s=document.getElementById(id);for(var i=min;i<=max;i++){var o=document.createElement('option');o.value=i;o.textContent=i+'人';if(i===def)o.selected=true;s.appendChild(o);}}
@@ -194,17 +213,18 @@
     if(plan==='sauna'&&children()>0){w.style.display='block';w.innerHTML='サウナは<b>13歳以上のみ</b>ご利用いただけます。<br>12歳以下のお子様はサウナをご利用いただけません（素泊まりプランをお選びください）。';return false;}
     w.style.display='none'; return guests()>=1;
   }
-  function firstIncomplete(){if(!plan)return 1;if(!step2Valid())return 2;if(!room)return 3;if(!(checkin&&checkout))return 4;return 0;}
+  function firstIncomplete(){if(!plan)return 1;if(!step2Valid())return 2;if(!room)return 3;if(!(checkin&&checkout))return 4;if(plan==='sauna'&&saunaSlot===null)return 5;return 0;}
 
   var flashT=null;
   function flashStep(i){
-    var el=document.getElementById('step'+i);
+    var el=(i===5)?document.getElementById('saunaSlots'):document.getElementById('step'+i);
+    var hint=(i===5)?document.getElementById('hintS'):document.getElementById('hint'+i);
     el.scrollIntoView({behavior:'smooth',block:'center'});
-    document.querySelectorAll('.sec').forEach(function(s){s.classList.remove('flash');});
+    document.querySelectorAll('.sec,#saunaSlots').forEach(function(s){s.classList.remove('flash');});
     document.querySelectorAll('.hint').forEach(function(h){h.style.display='none';});
-    el.classList.add('flash'); document.getElementById('hint'+i).style.display='block';
+    el.classList.add('flash'); if(hint)hint.style.display='block';
     clearTimeout(flashT);
-    flashT=setTimeout(function(){el.classList.remove('flash');document.getElementById('hint'+i).style.display='none';},2600);
+    flashT=setTimeout(function(){el.classList.remove('flash');if(hint)hint.style.display='none';},2600);
   }
 
   function renderRooms(){
@@ -212,7 +232,7 @@
     ROOMS.forEach(function(r){
       var fits=r.cap>=guests();
       var c=document.createElement('div'); c.className='rc'+(room===r.id?' on':'')+(fits?'':' dis');
-      c.innerHTML='<div class="ph">写真<br>'+r.name+'</div><div class="b"><div class="rn">'+r.name+'</div><div class="rs">'+r.spec+'／定員'+r.cap+'名</div>'+(fits?'<div class="rs" style="color:var(--ai);">このお部屋を選ぶ →</div>':'<div class="rx">この人数では選べません（定員'+r.cap+'名）</div>')+'</div>';
+      c.innerHTML='<div class="ph">写真<br>'+r.name+'</div><div class="b"><div class="rn">'+r.name+'</div><div class="rs">'+r.spec+'／定員'+r.cap+'名</div>'+(fits?'<div class="rs" style="color:var(--ai);">このタイプを選ぶ →</div>':'<div class="rx">この人数では選べません（定員'+r.cap+'名）</div>')+'</div>';
       c.onclick=function(){
         if(!plan){flashStep(1);return;}
         if(!step2Valid()){flashStep(2);return;}
@@ -223,12 +243,22 @@
     });
   }
 
+  function renderSauna(){
+    var box=document.getElementById('saunaSlots');
+    if(plan==='sauna'&&checkin&&checkout){
+      var html='<div class="stitle">サウナの枠をお選びください<span class="ssub">120分・貸切</span></div>';
+      SLOTS.forEach(function(sl){html+='<div class="slot'+(saunaSlot===sl.id?' on':'')+'" data-id="'+sl.id+'"><span class="t">'+sl.t+'</span><span class="r">'+sl.r+'</span>'+(sl.only?'<span class="bd">宿泊者専用</span>':'<span class="bd ok">空き</span>')+'</div>';});
+      box.style.display='block'; box.innerHTML=html;
+      box.querySelectorAll('.slot').forEach(function(el){el.onclick=function(){saunaSlot=+el.getAttribute('data-id');renderSauna();update();};});
+    } else { box.style.display='none'; box.innerHTML=''; if(plan!=='sauna')saunaSlot=null; }
+  }
+
   function avail(dt){if(dt<TODAY)return 'x';var r=(dt.getDate()+dt.getMonth()*3)%9;if(r===0)return 'x';if(r===8)return 'cl';if(r<=5)return 'few';return 'ok';}
   var SYM={ok:'●',few:'▲',x:'✕',cl:'―'};
   function pickDate(dt){
     if(!plan){flashStep(1);return;} if(!step2Valid()){flashStep(2);return;} if(!room){flashStep(3);return;}
     if(!checkin||(checkin&&checkout)){checkin=dt;checkout=null;}else if(dt.getTime()<=checkin.getTime()){checkin=dt;checkout=null;}else{checkout=dt;}
-    renderMonths();renderStay();update();
+    renderMonths();renderStay();renderSauna();update();
   }
   function inRange(dt){return checkin&&checkout&&dt>checkin&&dt<checkout;}
   function isEdge(dt){return (checkin&&dt.getTime()===checkin.getTime())||(checkout&&dt.getTime()===checkout.getTime());}
@@ -257,20 +287,21 @@
   function renderStay(){var s=document.getElementById('stay');if(!checkin){s.innerHTML='チェックイン日をお選びください';}else if(!checkout){s.innerHTML='<b>IN '+fmt(checkin)+'</b> <span class="muted">→ チェックアウト日を</span>';}else{s.innerHTML='<b>IN '+fmt(checkin)+' → OUT '+fmt(checkout)+'</b> <span class="muted">'+nights()+'泊</span>';}}
 
   function update(){
-    var d1=!!plan,d2=d1&&step2Valid(),d3=d2&&!!room,d4=d3&&checkin&&checkout;
+    var d1=!!plan,d2=d1&&step2Valid(),d3=d2&&!!room,datesDone=d3&&checkin&&checkout,d4=datesDone&&(plan!=='sauna'||saunaSlot!==null);
     document.querySelectorAll('.st').forEach(function(el){var s=+el.getAttribute('data-s');var ok=(s===1&&d1)||(s===2&&d2)||(s===3&&d3)||(s===4&&d4);el.className='st'+(ok?' done':'');});
     var info=document.getElementById('info'), nx=document.getElementById('nextBtn');
-    if(d4){info.innerHTML='<span class="big">'+nights()+'泊'+(plan==='sauna'?'＋サウナ':'')+'</span> <span class="muted">'+(room?ROOMS.filter(function(r){return r.id===room;})[0].name:'')+'</span><br>'+yen(grandTotal())+' <span class="muted">合計</span>';nx.className='nx';}
-    else{var parts=[];if(plan)parts.push(plan==='sauna'?'サウナ付':'素泊まり');parts.push('大人'+val('sAdult')+(children()?'／子'+children():'')+'名');info.innerHTML='<span class="muted">'+parts.join('・')+'</span>';nx.className='nx off';}
+    if(datesDone){var extra=(plan==='sauna'&&saunaSlot===null)?' <span style="color:#F1B0A8;">／サウナ枠を選択</span>':'';info.innerHTML='<span class="big">'+nights()+'泊'+(plan==='sauna'?'＋サウナ':'')+'</span> <span class="muted">'+(room?ROOMS.filter(function(r){return r.id===room;})[0].name:'')+'</span>'+extra+'<br>'+yen(grandTotal())+' <span class="muted">合計</span>';}
+    else{var parts=[];if(plan)parts.push(plan==='sauna'?'サウナ付':'素泊まり');parts.push('大人'+val('sAdult')+(children()?'／子'+children():'')+'名');info.innerHTML='<span class="muted">'+parts.join('・')+'</span>';}
+    nx.className='nx'+(firstIncomplete()===0?'':' off');
   }
 
-  document.querySelectorAll('.plan').forEach(function(p){p.onclick=function(){plan=p.getAttribute('data-plan');document.querySelectorAll('.plan').forEach(function(x){x.classList.remove('on');});p.classList.add('on');document.getElementById('hint1').style.display='none';document.getElementById('step1').classList.remove('flash');renderRooms();update();};});
+  document.querySelectorAll('.plan').forEach(function(p){p.onclick=function(){plan=p.getAttribute('data-plan');document.querySelectorAll('.plan').forEach(function(x){x.classList.remove('on');});p.classList.add('on');document.getElementById('hint1').style.display='none';document.getElementById('step1').classList.remove('flash');renderRooms();renderSauna();update();};});
   ['sAdult','s712','s36','s02'].forEach(function(id){document.getElementById(id).onchange=function(){if(room){var r=ROOMS.filter(function(x){return x.id===room;})[0];if(r.cap<guests())room=null;}renderRooms();renderMonths();update();};});
   document.getElementById('nextBtn').onclick=function(){var m=firstIncomplete();if(m){flashStep(m);return;}window.location.href='#';/* ★予約エンジンのURLに */};
   document.getElementById('prev').onclick=function(){if(view.getFullYear()===TODAY.getFullYear()&&view.getMonth()===TODAY.getMonth())return;view.setMonth(view.getMonth()-1);renderMonths();};
   document.getElementById('next').onclick=function(){view.setMonth(view.getMonth()+1);renderMonths();};
 
-  renderRooms(); renderMonths(); renderStay(); update();
+  renderRooms(); renderMonths(); renderStay(); renderSauna(); update();
 })();
 </script>
 </body>
