@@ -20,18 +20,53 @@
 <section class="hero"><p>OFFICIAL RESERVATION</p><h1>空室・ご予約</h1><p>素泊まりを基本に、貸切サウナを追加できます。</p></section>
 <nav class="steps" aria-label="予約手順"><div class="step active" id="s1"><b>1</b><span>日付・人数</span></div><div class="step" id="s2"><b>2</b><span>お部屋</span></div><div class="step" id="s3"><b>3</b><span>サウナ</span></div><div class="step" id="s4"><b>4</b><span>確認</span></div></nav>
 
-<section class="panel" id="dates"><h2>1. 日付・人数</h2><p class="lead">ご希望の宿泊条件を入力してください。年齢区分ごとに人数をお選びください。</p><div class="grid"><label>チェックイン<input id="checkin" type="date" required></label><label>チェックアウト<input id="checkout" type="date" required></label><label>大人（13歳以上）<select id="adults"><option value="1">1名</option><option value="2" selected>2名</option><option value="3">3名</option><option value="4">4名</option><option value="5">5名</option></select></label><label>子供（6〜12歳）<select id="children"><option value="0">0名</option><option value="1">1名</option><option value="2">2名</option><option value="3">3名</option><option value="4">4名</option></select></label><label>添い寝（0〜5歳）<select id="infants"><option value="0">0名</option><option value="1">1名</option><option value="2">2名</option><option value="3">3名</option><option value="4">4名</option></select></label></div><p class="note">添い寝は5歳までです。子供料金および添い寝料金は現在調整中のため、本番予約画面で確定条件をご案内します。</p><button class="primary" id="search">この条件でお部屋を見る</button></section>
+<section class="panel" id="dates"><h2>1. 日付・人数</h2><p class="lead">ご希望の宿泊条件を入力してください。お子様は布団の有無に合わせてお選びください。</p><div class="grid"><label>チェックイン<input id="checkin" type="date" required></label><label>チェックアウト<input id="checkout" type="date" required></label><label>大人（13歳以上）<select id="adults"><option value="1">1名</option><option value="2" selected>2名</option><option value="3">3名</option><option value="4">4名</option><option value="5">5名</option></select></label><label>子供（0〜12歳・布団あり）<select id="children"><option value="0">0名</option><option value="1">1名</option><option value="2">2名</option><option value="3">3名</option><option value="4">4名</option></select><small>布団をご用意します（子供料金）</small></label><label>添い寝（0〜5歳・布団なし）<select id="infants"><option value="0">0名</option><option value="1">1名</option><option value="2">2名</option><option value="3">3名</option><option value="4">4名</option></select><small>布団のご用意はありません（添い寝料金）</small></label></div><p class="note">お子様は「布団あり」または「布団なし」のどちらか一方に入力してください。6〜12歳のお子様は「布団あり」をお選びください。</p><button class="primary" id="search">この条件でお部屋を見る</button></section>
 
 <section class="panel disabled" id="room"><h2>2. お部屋</h2><p class="lead">空室検索後、予約エンジンから取得した部屋と宿泊合計額を表示します。</p><div class="cards">
-<label class="card"><input type="radio" name="room" value="離れ（半露天風呂）"><span class="pending">表示例・在庫未接続</span><h3>離れ（半露天風呂）</h3><p>和室二間・約57㎡・定員5名</p><div class="price"><strong>料金確認中</strong><br>人数・日程に応じた税込合計額を表示予定</div></label>
-<label class="card"><input type="radio" name="room" value="長屋（半露天風呂）"><span class="pending">表示例・在庫未接続</span><h3>長屋（半露天風呂）</h3><p>和室10畳・約37㎡・定員3名</p><div class="price"><strong>料金確認中</strong><br>人数・日程に応じた税込合計額を表示予定</div></label>
-<label class="card"><input type="radio" name="room" value="長屋（内風呂）"><span class="pending">表示例・在庫未接続</span><h3>長屋（内風呂）</h3><p>和室10畳・約37㎡・定員3名</p><div class="price"><strong>料金確認中</strong><br>人数・日程に応じた税込合計額を表示予定</div></label></div><p class="note"><a href="rooms.html">客室の詳しい案内を見る →</a></p></section>
+<label class="card" data-capacity="5"><input type="radio" name="room" value="離れ（半露天風呂）"><span class="pending">表示例・在庫未接続</span><h3>離れ（半露天風呂）</h3><p>和室二間・約57㎡・定員5名</p><div class="price"><strong>料金確認中</strong><br>人数・日程に応じた税込合計額を表示予定</div><p class="capacity-message" hidden></p></label>
+<label class="card" data-capacity="3"><input type="radio" name="room" value="長屋（半露天風呂）"><span class="pending">表示例・在庫未接続</span><h3>長屋（半露天風呂）</h3><p>和室10畳・約37㎡・定員3名</p><div class="price"><strong>料金確認中</strong><br>人数・日程に応じた税込合計額を表示予定</div><p class="capacity-message" hidden></p></label>
+<label class="card" data-capacity="3"><input type="radio" name="room" value="長屋（内風呂）"><span class="pending">表示例・在庫未接続</span><h3>長屋（内風呂）</h3><p>和室10畳・約37㎡・定員3名</p><div class="price"><strong>料金確認中</strong><br>人数・日程に応じた税込合計額を表示予定</div><p class="capacity-message" hidden></p></label></div><div id="noRooms" class="alert hidden">ご指定の人数で予約できるお部屋がありません。</div><p class="note"><a href="rooms.html">客室の詳しい案内を見る →</a></p></section>
 
-<section class="panel disabled" id="sauna"><h2>3. 貸切サウナを追加</h2><p class="lead">宿泊だけでもご予約いただけます。</p><div class="choice"><button type="button" data-sauna="なし" class="on">追加しない</button><button type="button" data-sauna="追加希望">追加する</button></div><div id="saunaHelp" class="alert hidden">貸切枠と料金は現在調整中です。本番では空いている時間と正式な税込料金を表示します。</div><p class="note"><a href="sauna.html">天照・月読について詳しく見る →</a></p><button class="primary" id="review">予約内容を確認する</button></section>
+<section class="panel disabled" id="sauna"><h2>3. 貸切サウナを追加</h2><p class="lead">宿泊だけでもご予約いただけます。貸切サウナは13歳以上の方のみご利用いただけます。</p><div class="choice"><button type="button" data-sauna="なし" class="on">追加しない</button><button type="button" data-sauna="追加希望" id="addSauna">追加する</button></div><div id="saunaAgeNotice" class="alert hidden">13歳未満のお子様が含まれるため、貸切サウナはご予約いただけません。</div><div id="saunaHelp" class="alert hidden">貸切枠と料金は現在調整中です。本番では空いている時間と正式な税込料金を表示します。</div><p class="note"><a href="sauna.html">天照・月読について詳しく見る →</a></p><button class="primary" id="review">予約内容を確認する</button></section>
 
 <section class="panel disabled" id="confirm"><h2>4. 予約内容の確認</h2><div class="summary"><dl><div><dt>日程</dt><dd id="sumDate">—</dd></div><div><dt>人数</dt><dd id="sumPeople">—</dd></div><div><dt>お部屋</dt><dd id="sumRoom">—</dd></div><div><dt>貸切サウナ</dt><dd id="sumSauna">なし</dd></div><div><dt>宿泊合計</dt><dd class="total">本番連携後に表示</dd></div></dl></div><div class="alert">現在は予約エンジン未接続の確認用ページです。このボタンから予約・決済は成立しません。</div><button class="primary" id="final" type="button">予約エンジン接続後に利用できます</button><!-- TODO: 本番予約エンジン確定後、在庫・料金APIと予約者情報／決済画面へ接続する。クライアント側の仮料金で決済しない。 --></section>
 <footer class="footer"><a href="index.html#cancel">キャンセルポリシー</a><a href="index.html#privacy">プライバシー</a><a href="index.html#commerce">特商法に基づく表示</a></footer>
 </main>
 <script>
-(()=>{const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);const today=new Date();today.setHours(0,0,0,0);const iso=d=>{const x=new Date(d.getTime()-d.getTimezoneOffset()*60000);return x.toISOString().slice(0,10)};const ci=$('#checkin'),co=$('#checkout');ci.min=iso(today);ci.value=iso(new Date(today.getTime()+86400000));co.value=iso(new Date(today.getTime()+2*86400000));co.min=co.value;ci.onchange=()=>{const d=new Date(ci.value+'T00:00:00');d.setDate(d.getDate()+1);co.min=iso(d);if(!co.value||co.value<co.min)co.value=co.min};$('#search').onclick=()=>{if(!ci.value||!co.value||co.value<=ci.value){alert('チェックインより後の日付をチェックアウトに指定してください。');return}$('#room').classList.remove('disabled');$('#s1').classList.add('done');$('#s2').classList.add('active');$('#room').scrollIntoView({behavior:'smooth'})};$$('input[name=room]').forEach(r=>r.onchange=()=>{$$('.card').forEach(c=>c.classList.remove('selected'));r.closest('.card').classList.add('selected');$('#sauna').classList.remove('disabled');$('#s2').classList.add('done');$('#s3').classList.add('active')});$$('[data-sauna]').forEach(b=>b.onclick=()=>{$$('[data-sauna]').forEach(x=>x.classList.remove('on'));b.classList.add('on');$('#saunaHelp').classList.toggle('hidden',b.dataset.sauna==='なし')});$('#review').onclick=()=>{const room=$('input[name=room]:checked');if(!room){alert('お部屋をお選びください。');return}const a=$('#adults').value,c=$('#children').value,i=$('#infants').value,s=$('[data-sauna].on').dataset.sauna;$('#sumDate').textContent=`${ci.value} 〜 ${co.value}`;$('#sumPeople').textContent=`大人（13歳以上）${a}名${c==='0'?'':`・子供（6〜12歳）${c}名`}${i==='0'?'':`・添い寝（0〜5歳）${i}名`}`;$('#sumRoom').textContent=room.value;$('#sumSauna').textContent=s;$('#confirm').classList.remove('disabled');$('#s3').classList.add('done');$('#s4').classList.add('active');$('#confirm').scrollIntoView({behavior:'smooth'})};$('#final').onclick=()=>alert('現在は確認用です。予約エンジン接続後に、予約者情報・決済画面へ進むようになります。')})();
+(()=>{
+  const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+  const today=new Date(); today.setHours(0,0,0,0);
+  const iso=d=>{const x=new Date(d.getTime()-d.getTimezoneOffset()*60000);return x.toISOString().slice(0,10)};
+  const ci=$('#checkin'),co=$('#checkout');
+  const counts=()=>({adults:+$('#adults').value,children:+$('#children').value,infants:+$('#infants').value});
+  ci.min=iso(today); ci.value=iso(new Date(today.getTime()+86400000));
+  co.value=iso(new Date(today.getTime()+2*86400000)); co.min=co.value;
+  ci.onchange=()=>{const d=new Date(ci.value+'T00:00:00');d.setDate(d.getDate()+1);co.min=iso(d);if(!co.value||co.value<co.min)co.value=co.min};
+  const updateRooms=()=>{
+    const {adults,children}=counts(),charged=adults+children; let available=0;
+    $$('.card[data-capacity]').forEach(card=>{
+      const over=charged>+card.dataset.capacity,input=card.querySelector('input'),message=card.querySelector('.capacity-message');
+      input.disabled=over; card.style.opacity=over?'.48':'1'; card.style.cursor=over?'not-allowed':'pointer';
+      message.hidden=!over; message.textContent=over?`定員${card.dataset.capacity}名のため、この人数ではご予約いただけません。`:'';
+      message.style.color='var(--warn)'; message.style.fontWeight='500';
+      if(over){card.classList.remove('selected');input.checked=false}else available++;
+    });
+    $('#noRooms').classList.toggle('hidden',available>0);
+  };
+  const updateSauna=()=>{
+    const {children,infants}=counts(),hasChild=children+infants>0,add=$('#addSauna');
+    add.disabled=hasChild; add.style.opacity=hasChild?'.42':'1'; add.style.cursor=hasChild?'not-allowed':'pointer';
+    $('#saunaAgeNotice').classList.toggle('hidden',!hasChild);
+    if(hasChild){$$('[data-sauna]').forEach(x=>x.classList.remove('on'));$('[data-sauna="なし"]').classList.add('on');$('#saunaHelp').classList.add('hidden')}
+  };
+  $('#search').onclick=()=>{
+    if(!ci.value||!co.value||co.value<=ci.value){alert('チェックインより後の日付をチェックアウトに指定してください。');return}
+    updateRooms(); updateSauna(); $('#room').classList.remove('disabled'); $('#s1').classList.add('done'); $('#s2').classList.add('active'); $('#room').scrollIntoView({behavior:'smooth'});
+  };
+  $$('#adults,#children,#infants').forEach(x=>x.onchange=()=>{updateRooms();updateSauna()});
+  $$('input[name=room]').forEach(r=>r.onchange=()=>{if(r.disabled)return;$$('.card').forEach(c=>c.classList.remove('selected'));r.closest('.card').classList.add('selected');$('#sauna').classList.remove('disabled');$('#s2').classList.add('done');$('#s3').classList.add('active');updateSauna()});
+  $$('[data-sauna]').forEach(b=>b.onclick=()=>{if(b.disabled)return;$$('[data-sauna]').forEach(x=>x.classList.remove('on'));b.classList.add('on');$('#saunaHelp').classList.toggle('hidden',b.dataset.sauna==='なし')});
+  $('#review').onclick=()=>{const room=$('input[name=room]:checked');if(!room){alert('ご宿泊人数に合うお部屋をお選びください。');return}const {adults,children,infants}=counts(),s=$('[data-sauna].on').dataset.sauna;$('#sumDate').textContent=`${ci.value} 〜 ${co.value}`;$('#sumPeople').textContent=`大人（13歳以上）${adults}名${children?`・子供（0〜12歳・布団あり）${children}名`:''}${infants?`・添い寝（0〜5歳・布団なし）${infants}名`:''}`;$('#sumRoom').textContent=room.value;$('#sumSauna').textContent=s;$('#confirm').classList.remove('disabled');$('#s3').classList.add('done');$('#s4').classList.add('active');$('#confirm').scrollIntoView({behavior:'smooth'})};
+  $('#final').onclick=()=>alert('現在は確認用です。予約エンジン接続後に、予約者情報・決済画面へ進むようになります。');
+})();
 </script></body></html>
